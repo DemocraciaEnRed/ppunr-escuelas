@@ -393,9 +393,9 @@ class FormularioPropuesta extends Component {
             </div>
             <div className='tags-autocomplete'>
               <label className='required'>
-                  Temas
+                  Tema
               </label>
-              <p className='help-text'>Elegí los temas relacionados a tu idea. Máximo 3 temas. </p>
+              <p className='help-text'>Elegí que tema se relaciona con tu idea. </p>
               {
                 this.state.mode === 'edit' && this.state.tags &&
                   <ul className="tags">
