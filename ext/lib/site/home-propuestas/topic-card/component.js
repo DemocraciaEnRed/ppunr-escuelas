@@ -15,7 +15,7 @@ const estados = (state) => {
     //   return 'Idea-Proyecto'
     //   break
     case 'pendiente':
-      return 'Original'
+      return 'Idea'
       break
     case 'proyecto':
       return 'Proyecto'
@@ -210,10 +210,10 @@ export class TopicCard extends Component {
               <div
                 className='proyectista-wrapper'>
                 <button
-                  className={`btn btn-primary btn-${isProyectista ? 'empty' : 'filled'}`}
+                  className={`btn btn-primary btn-${!isProyectista ? 'empty' : 'filled'}`}
                   onClick={() => onProyectista(topic.id, !isProyectista)}
                   disabled={isProyectista}>
-                  {isProyectista ? '¡Ya sos proyectista!' : '¡Quiero ser proyectista!'}
+                  {isProyectista ? '¡Gracias! ¡Registramos tu "Me gusta"!' : 'Me gusta'}&nbsp;&nbsp;({topic.proyectistas.length})&nbsp;&nbsp;<span className='icon-like' />
                 </button>
               </div>
             }
