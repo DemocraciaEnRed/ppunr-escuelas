@@ -256,8 +256,8 @@ class FormularioPropuesta extends Component {
     return (
       <div className='form-propuesta'>
         <div className='propuesta-header'>
-          <h1 className='text-center'>PRESUPUESTO PARTICIPATIVO 2020</h1>
-          <p>¡Acá vas a poder subir tu propuesta para el presupuesto participativo!</p>
+          <h1 className='text-center'>FORMULARIO PARA ENVIAR IDEAS</h1>
+          <p>¡Compartinos tus ideas para mejorar nuestra escuela!</p>
           {//<p>¡Gracias a todos y todas por participar!</p>
           }
         </div>
@@ -425,8 +425,7 @@ class FormularioPropuesta extends Component {
               <label className='required' htmlFor='problema'>
                 Tu idea
               </label>
-              <p className='help-text'>¿Qué problemas querés resolver? ¿a quiénes afecta? ¿Cómo?</p>
-              <p className='help-text'><strong>Recordá ingresar solo una idea por formulario</strong></p>
+              <p className='help-text'>¿Que querés proponer? ¿Para qué? ¿Quiénes se ven beneficiado/as?</p>
               <textarea
                 className='form-control'
                 required

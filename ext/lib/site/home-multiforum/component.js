@@ -59,7 +59,7 @@ export default class HomeMultiforumOverride extends Component {
               <div
               key={escuela._id}
               className={`bloque-escuela bloque-escuela-${escuela.abreviacion}`}>
-                <p>Conocé los proyectos de {escuela.abreviacion == 'IPS' ? 'el' : 'la'} <b>{escuela.tituloForo}</b></p>
+                <p>Conocé las ideas de {escuela.abreviacion == 'IPS' ? 'el' : 'la'} <b>{escuela.tituloForo}</b></p>
                 <a className="foro-escuela-link"
                  href={`/propuestas?id=${escuela._id}`}>
                   <span className="glyphicon glyphicon-menu-right"></span>

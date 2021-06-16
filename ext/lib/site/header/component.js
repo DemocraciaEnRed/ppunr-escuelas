@@ -159,7 +159,7 @@ class Header extends Component {
                   href={`/propuestas?id=${escuela._id}`}
                   className={`header-link header-link-${escuela.abreviacion}`}
                   >
-                    {escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre} elige
+                    Foro {escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre} 
                 </a>
               </div>
             ))}
