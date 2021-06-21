@@ -356,7 +356,7 @@ class HomePropuestas extends Component {
 
       <div className={`ext-home-ideas ${this.props.user.state.fulfilled ? 'user-logged' : ''}`}>
         <BannerListadoTopics
-          btnText={config.propuestasAbiertas && isFromEscuela ? 'Mandá tu idea' : undefined}
+          btnText={config.propuestasAbiertas && isFromEscuela ? 'Subí tu idea' : undefined}
           btnLink={config.propuestasAbiertas && isFromEscuela ? `/formulario-idea?id=${escuela && escuela._id}` : undefined}
           title='Conocé los proyectos del PPUNR'
           subtitle={escuela && escuela.tituloForo}
@@ -395,11 +395,11 @@ class HomePropuestas extends Component {
         </div>
 
         <div className='container topics-container'>
-          {/* {!isFromEscuela &&
+          {!isFromEscuela &&
             <div className='not-in-escuela-reminder'>
-              <span><i className="glyphicon glyphicon-warning-sign"></i>Recordá que sólo podés ser proyectista en ideas del foro de tu escuela</span>
+            <span><i className="glyphicon glyphicon-warning-sign"></i>Recordá que podés subir ideas en el foro de tu escuela</span>
             </div>
-          } */}
+          }
           <FilterPropuestas
             claustros={this.state.claustros}
             claustro={this.state.claustro}
