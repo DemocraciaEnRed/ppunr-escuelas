@@ -40,16 +40,16 @@ export default class Page extends Component {
                   </div>
 
                   <div data-trigger="+ ¿En qué se basa la etapa de Foros del PP Escuelas?">
-                    <p className='p-padding'>Cada Escuela tendrá su propio Foro que tiene por objetivo que quienes integran la comunidad propongan ideas que aporten en la construcción de la Escuela que quieran hacer realidad. También podrán inscribirse como proyectistas de cada Consejo Escolar respectivo. El Foro estará abierto desde el 23 de junio al 8 de julio. 
+                    <p className='p-padding'>Cada Escuela tendrá su propio Foro que tiene por objetivo que quienes integran la comunidad propongan ideas que aporten en la construcción de la Escuela que quieran hacer realidad. También podrán inscribirse como proyectistas de cada Consejo Escolar respectivo. El Foro estará abierto desde el 23 de junio al 7 de julio. 
 </p>
                   </div>
 
                   <div data-trigger="+ ¿Cómo participo?">
-                    <p className='p-padding'>  Te invitamos a registrarte aquí <Link to='/signup'>aquí</Link> para sumar ideas y comentar las ideas de otros/as participantes. Podrás también expresar tu interés (me gusta) y comentar las mismas. Es muy importante que fomentemos el diálogo informado y respetuoso. Además podrás inscribirte como proyectista del Consejo Escolar aquí (link). No es necesario presentar ideas para ser proyectista. </p>
+                    <p className='p-padding'>  Te invitamos a registrarte <Link to='/signup'>aquí</Link> para sumar ideas y comentar las ideas de otros/as participantes. Podrás también expresar tu interés (me gusta) y comentar las mismas. Es muy importante que fomentemos el diálogo informado y respetuoso. Además podrás inscribirte como proyectista del Consejo Escolar. No es necesario presentar ideas para ser proyectista. </p>
                   </div>
 
                   <div data-trigger="+ ¿Cuáles son los temas para proponer ideas?">
-                    <p className='p-padding'> Vas a encontrar en el formulario (link) una serie de etiquetas que refieren a diversas áreas temáticas, pudiéndose reasignar por parte del equipo el PPUNR.  Sólo podrás elegir una, la que te parezca engloba más y mejor tu idea. La misma será retomada luego por el Consejo de tu Escuela.
+                    <p className='p-padding'> Vas a encontrar en el formulario <Link to='/formulario-idea'>(link)</Link> una serie de etiquetas que refieren a diversas áreas temáticas, pudiéndose reasignar por parte del equipo el PPUNR.  Sólo podrás elegir una, la que te parezca engloba más y mejor tu idea. La misma será retomada luego por el Consejo de tu Escuela.
                     <ul className='p-padding'>
                           <li>Ambiente y Sustentabilidad</li>
                           <li>Género, DDHH y Accesibilidad</li>
@@ -61,7 +61,7 @@ export default class Page extends Component {
                   </div>
 
                   <div data-trigger="+  ¿Cómo subo una idea?">
-                    <p className='p-padding'>Encontrarás aquí (link a form) el espacio para proponer tu idea: incluí un título y escribí un breve párrafo explicándola. Agregá el área temática. Eso ayudará a agruparlas por afinidad para la próxima etapa: los Consejos Escolares. Recordá que te podés inscribir como proyectista para participar del Consejo de tu escuela. </p>
+                    <p className='p-padding'>Encontrarás aquí <Link to='/formulario-idea'>(link)</Link> el espacio para proponer tu idea: incluí un título y escribí un breve párrafo explicándola. Agregá el área temática. Eso ayudará a agruparlas por afinidad para la próxima etapa: los Consejos Escolares. Recordá que te podés inscribir como proyectista para participar del Consejo de tu escuela. </p>
                   </div>
 
                   <div data-trigger="+ ¿Qué pasa si no puedo registrarme?">
@@ -87,7 +87,7 @@ export default class Page extends Component {
                   </div>
 
                   <div data-trigger="+ ¿Cuándo se cierra el Foro?">
-                    <p className='p-padding'>El Foro se cerrará el 8 de Julio. Hasta entonces tenés tiempo para modificar tu idea, intercambiar sobre las ideas de otros/as participantes e inscribirte para ser proyectista. </p>
+                    <p className='p-padding'>El Foro se cerrará el 7 de Julio. Hasta entonces tenés tiempo para modificar tu idea, intercambiar sobre las ideas de otros/as participantes e inscribirte para ser proyectista. </p>
                   </div>
 
                   <div data-trigger="+ ¿Qué pasará con mi idea?">
