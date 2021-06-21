@@ -42,7 +42,7 @@ export default userConnector(function ThumbsVoto(props) {
               { config.propuestasAbiertas && <Link
                 to={ userLoggedIn ? `/formulario-idea?id=${userEscuelaId}` : '/formulario-idea' }
                 className="boton-mandar-idea">
-                Mandá tu idea
+                Subí tu idea
               </Link>
               }
               {/*<Link
@@ -98,7 +98,7 @@ export default userConnector(function ThumbsVoto(props) {
         <div
           className='row'>
           <div className='cont-boton-azul'>
-            <Link to='https://presupuestoparticipativo.unr.edu.ar/como-participo/' className="boton-azul">
+            <Link to='/s/acerca-de' className="boton-azul">
               ¿Como participo?
             </Link>
           </div>
