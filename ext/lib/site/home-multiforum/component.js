@@ -54,7 +54,7 @@ export default class HomeMultiforumOverride extends Component {
           <BannerForoVecinal title="Presupuesto participativo - Escuelas" texts={this.state.texts} />
           <ThumbsVoto texts={this.state.texts} />
           <div className="banner-escuelas">
-            <h4>Elegí tu proyecto favorito</h4>
+            <h4>Elegí tu escuela y subí tu idea</h4>
             {this.state.escuelas.length > 0 && this.state.escuelas.map(escuela => (
               <div
               key={escuela._id}
