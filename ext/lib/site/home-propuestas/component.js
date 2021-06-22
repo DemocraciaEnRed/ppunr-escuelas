@@ -276,7 +276,14 @@ class HomePropuestas extends Component {
   renderSortFilter() {
     return (
       <div>
-        <h4 className="topics-title">Lista de proyectos</h4>
+        {
+          config.propuestasVisibles &&
+          <h4 className="topics-title">Lista de ideas</h4>
+        }
+        {
+          config.votacionVisible &&
+          <h4 className="topics-title">Lista de proyectos</h4>
+        }
         <div className='topics-filters'>
           {/*this.state.forumStates &&
             <div className='topics-filter topics-state-filter'>
@@ -358,7 +365,8 @@ class HomePropuestas extends Component {
         <BannerListadoTopics
           btnText={config.propuestasAbiertas && isFromEscuela ? 'Subí tu idea' : undefined}
           btnLink={config.propuestasAbiertas && isFromEscuela ? `/formulario-idea?id=${escuela && escuela._id}` : undefined}
-          title='Conocé los proyectos del PPUNR'
+          title={config.propuestasVisibles ? 'Ideas' : 'Proyectos'}
+
           subtitle={escuela && escuela.tituloForo}
           esculeaAbrev={escuela && escuela.abreviacion}
           />
@@ -415,7 +423,7 @@ class HomePropuestas extends Component {
 
           <div className='row'>
             <div className='col-md-10 offset-md-1'>
-
+              {config.votacionVisible &&
                 <div className='search-proyecto-wrapper'>
                   {/* para esto usamos react-select version 2.4.4 */}
                   <Select
@@ -430,7 +438,7 @@ class HomePropuestas extends Component {
                     Limpiar filtro
                   </button>
                 </div>
-
+              }
               { this.renderSortFilter() }
               {topics && topics.length === 0 && (
                 <div className='empty-msg'>
