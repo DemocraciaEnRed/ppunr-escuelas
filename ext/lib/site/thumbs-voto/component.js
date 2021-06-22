@@ -95,14 +95,14 @@ export default userConnector(function ThumbsVoto(props) {
 
         </div>
 
-        <div
+        {/* <div
           className='row'>
           <div className='cont-boton-azul'>
             <Link to='/s/acerca-de' className="boton-azul">
               ¿Como participo?
             </Link>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   )
