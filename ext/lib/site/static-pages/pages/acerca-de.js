@@ -116,7 +116,7 @@ export default class Page extends Component {
 
 
                   <div data-trigger="+ ¿Cuál es el monto asignado para cada Escuela en el PPUNR 2021?">
-                    <p className='p-padding'>Cada Escuela tendrá disponible un millón de pesos para discutir en el marco de su comunidad.</p>
+                    <p className='p-padding'>Cada Escuela tendrá disponible un millón trescientos mil pesos para discutir en el marco de su comunidad.</p>
                   </div>
 
                   
