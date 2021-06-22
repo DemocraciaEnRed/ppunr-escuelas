@@ -205,18 +205,19 @@ export class TopicCard extends Component {
             {((isLoggedIn && isFromEscuela) || !isLoggedIn) && isProyecto && config.votacionVisible && config.votacionAbierta &&
               <VotarButton topic={topic} onVote={onVote} />
             }
-            {
-              ((isLoggedIn && isFromEscuela) || !isLoggedIn) && !isProyecto && !config.votacionVisible && config.propuestasVisibles && config.habilitarApoyo &&
               <div
                 className='proyectista-wrapper'>
+                {
+                  ((isLoggedIn && isFromEscuela) || !isLoggedIn) && !isProyecto && !config.votacionVisible && config.propuestasVisibles && config.habilitarApoyo &&
                 <button
-                  className={`btn btn-primary btn-${!isProyectista ? 'empty' : 'filled'}`}
+                  className={`btn ${!isProyectista ? '' : 'not-voted'}`}
                   onClick={() => onProyectista(topic.id, !isProyectista)}
                   disabled={isProyectista}>
-                  {isProyectista ? '¡Gracias! ¡Registramos tu "Me gusta"!' : 'Me gusta'}&nbsp;&nbsp;({topic.proyectistas.length})&nbsp;&nbsp;<span className='icon-like' />
+                  {isProyectista ? 'Te gusta' : 'Me gusta'}&nbsp;&nbsp;<span className='icon-like' />&nbsp;&nbsp;({topic.proyectistas.length})
                 </button>
+}
+                <Link className='btn comment' to={`/propuestas/topic/${topic.id}`}>Ver más</Link>
               </div>
-            }
           </div>
 
         </div>
