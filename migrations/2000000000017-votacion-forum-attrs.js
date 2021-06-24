@@ -73,7 +73,8 @@ const newFields = [
 		"order" : 1,
 		"width" : 6,
 		"icon" : "",
-		"options" : [{name: '', title: ''}]
+		// "options" : [{name: '', title: ''}]
+		"options" : []
 	}
 ]
 
