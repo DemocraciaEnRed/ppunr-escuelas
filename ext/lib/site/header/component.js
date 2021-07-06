@@ -131,22 +131,28 @@ class Header extends Component {
       )
     } else {
       return (
-        <nav className='navbar navbar-fixed-top navbar-vilo' style={styles}>
+        <nav className='navbar navbar-fixed-top navbar-vilo' style={styles} role="Group" aria-label='Menu de la pagina. Use Tab para navegar y tecla enter para presionar '>
           <Link
             to={config.homeLink}
             className='navbar-brand'>
             <img
               src={config.logo}
               className='d-inline-block align-top'
+              role= "img"
+              tabIndex= "1"
+              aria-label="Logo ppunr escuelas"
             />
           </Link>
 
           <ul className='nav navbar-nav'>
 
             <div className={`header-item ${window.location.pathname.includes('/acerca-de') ? 'active' : ''}`}>
-              <Link
+              <Link 
                 to='/s/acerca-de'
                 className='header-link'
+                role= "Group"
+                tabIndex= "2"
+                aria-label='link acerca de'
                 >
                   Acerca de
               </Link>
@@ -158,6 +164,9 @@ class Header extends Component {
                 <a
                   href={`/propuestas?id=${escuela._id}`}
                   className={`header-link header-link-${escuela.abreviacion}`}
+                  role= "Group"
+                  aria-label={`Foro ${escuela.nombre}`}
+                  tabIndex= "3"
                   >
                     {/* Foro {escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre}  */}
                   Foro {escuela.nombre} ({escuela.abreviacion})
@@ -169,6 +178,9 @@ class Header extends Component {
                 <Link
                   to='/proyectos/admin/topics'
                   className='header-link'
+                  role= "Group"
+                  aria-label= 'ingresar como administrador/administradora'
+                  tabIndex= "4"
                   >
                     Admin
                 </Link>

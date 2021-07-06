@@ -41,7 +41,9 @@ export default userConnector(function ThumbsVoto(props) {
            
               { config.propuestasAbiertas && <Link
                 to={ userLoggedIn ? `/formulario-idea?id=${userEscuelaId}` : '/formulario-idea' }
-                className="boton-mandar-idea">
+                className="boton-mandar-idea"
+                name="boton subi idea"
+                role="Button">
                 Subí tu idea
               </Link>
               }
