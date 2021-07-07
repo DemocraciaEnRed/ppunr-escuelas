@@ -403,7 +403,7 @@ class HomePropuestas extends Component {
         </div>
 
         <div className='container topics-container'>
-          {!isFromEscuela &&
+          {!isFromEscuela && false &&
             <div className='not-in-escuela-reminder'>
             <span><i className="glyphicon glyphicon-warning-sign"></i>Recordá que podés subir ideas en el foro de tu escuela</span>
             </div>
