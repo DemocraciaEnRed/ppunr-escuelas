@@ -46,7 +46,7 @@ export class Comments extends Component {
                 onSubmit={this.props.handleCreate}
                 commentsCreating={this.props.commentsCreating} />
             :
-              <p className='not-in-escuela'>¡Gracias por haber comentando!<br />Los comentarios de esta sección se encuentra deshabilitada.</p>
+              <p className='not-in-escuela'>¡Gracias por haber comentando!<br />finalizó el período para hacer comentarios.</p>
           ) :
             <p className='not-in-escuela'>No podés hacer comentarios en ideas de esta escuela</p>
           }

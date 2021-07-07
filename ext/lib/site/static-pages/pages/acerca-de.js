@@ -61,7 +61,7 @@ export default class Page extends Component {
                   </div>
 
                   <div data-trigger="+  ¿Cómo subo una idea?">
-                    <p className='p-padding'>Encontrarás aquí <Link to='/formulario-idea'>(link)</Link> el espacio para proponer tu idea: incluí un título y escribí un breve párrafo explicándola. Agregá el área temática. Eso ayudará a agruparlas por afinidad para la próxima etapa: los Consejos Escolares. Recordá que te podés inscribir como proyectista para participar del Consejo de tu escuela. </p>
+                    <p className='p-padding'>Encontrarás aquí el espacio para proponer tu idea: incluí un título y escribí un breve párrafo explicándola. Agregá el área temática. Eso ayudará a agruparlas por afinidad para la próxima etapa: los Consejos Escolares. Recordá que te podés inscribir como proyectista para participar del Consejo de tu escuela. </p>
                   </div>
 
                   <div data-trigger="+ ¿Qué pasa si no puedo registrarme?">
