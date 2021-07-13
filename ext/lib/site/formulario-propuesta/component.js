@@ -270,12 +270,12 @@ class FormularioPropuesta extends Component {
         :
           <form className='wrapper' onSubmit={this.handleSubmit}>
             <div className="bar-section">
-            <p className="section-intro">Todos estos datos son confidenciales</p>
-              <p className="section-title">Tus datos personales</p>
+            <p className="section-intro" aria-label='Todos estos datos son confidenciales'>Todos estos datos son confidenciales</p>
+              <p className="section-title" aria-label='titulo tus datos'>Tus datos personales</p>
             </div>
             <input type='hidden' name='forum' value={forum.id} />
             <div className='form-group'>
-              <label className='required' htmlFor='nombre'>
+              <label className='required' htmlFor='nombre' aria-label={`Campo Nombre y Apellido. Autocompletado con ${this.state['nombre']}`}>
                 Nombre y apellido
               </label>
               <input
@@ -290,7 +290,7 @@ class FormularioPropuesta extends Component {
                 disabled={true} />
             </div>
             <div className='form-group'>
-              <label className='required' htmlFor='claustro'>
+              <label className='required' htmlFor='claustro' aria-label={this.state['claustro'] && `Campo clautro. Autocompletado con ${claustros.find((claustro) => this.state['claustro'] === claustro._id ).nombre }`}>
                 Claustro
               </label>
               <select
@@ -309,7 +309,7 @@ class FormularioPropuesta extends Component {
               </select>
             </div>
             <div className='form-group'>
-              <label className='required' htmlFor='escuela'>
+              <label className='required' htmlFor='escuela' aria-label={this.state['escuela'] && `Campo escuela. Autocompletado con ${escuelas.find((escuela) => this.state['escuela'] === escuela._id ).nombre }`}>
                 Escuela
               </label>
               <select
@@ -328,7 +328,7 @@ class FormularioPropuesta extends Component {
               </select>
             </div>
             <div className='form-group'>
-              <label className='required' htmlFor='documento'>
+              <label className='required' htmlFor='documento' aria-label={`Campo DNI. Autocompletado con ${this.state['documento']}`}>
                 DNI
               </label>
               <input
@@ -343,7 +343,7 @@ class FormularioPropuesta extends Component {
                 disabled={true}/>
             </div>
             <div className='form-group'>
-              <label className='required' htmlFor='genero'>
+              <label className='required' htmlFor='genero' aria-label="">
                 Género
               </label>
               <input
@@ -357,7 +357,7 @@ class FormularioPropuesta extends Component {
                 onChange={this.handleInputChange} />
             </div>
             <div className='form-group'>
-              <label className='required' htmlFor='email'>
+              <label className='required' htmlFor='email' aria-label={`Campo email: ${this.state['email']}`}>
                 Email
               </label>
               <input

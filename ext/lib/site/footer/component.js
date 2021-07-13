@@ -9,7 +9,7 @@ const Footer = () => (
         <p>
           <span>Coordinación y Secretaría Técnica PP UNR</span>
           <span>Maipú 1065</span>
-          <span>Email para consultas: <a href="mailto:presupuestoparticipativo@unr.edu.ar">presupuestoparticipativo@unr.edu.ar</a></span>
+          <span>Email para consultas: <a name='mail de contacto' role='link' href="mailto:presupuestoparticipativo@unr.edu.ar">presupuestoparticipativo@unr.edu.ar</a></span>
         </p>
       </div>
       <div className='mapa-box'>
@@ -24,23 +24,23 @@ const Footer = () => (
         <a className='social-mail' href='mailto:presupuestoparticipativo@unr.edu.ar' target="_blank"/>
       </div>
       <div className='logos'>
-        <a href="https://democraciaenred.org/" rel="noopener noreferer" target="_blank">
+        <a name='Desarrollado por, democracia en red link a la pagina' role='link' href="https://democraciaenred.org/" rel="noopener noreferer" target="_blank">
           <div className='logo-der'>
-            <img src="/ext/lib/site/footer/logo-der.png" alt="Democracia en Red"/>
+            <img src="/ext/lib/site/footer/logo-der.png" alt="logo Democracia en Red"/>
             <span>Desarrollado por<br /><b>Democracia en red</b></span>
           </div>
         </a>
         <div className='logo'>
-          <a className='logo-unr' href='https://www.unr.edu.ar/' rel="noopener noreferer" target="_blank" />
+          <a  name='Link a la universidad nacional de rosario' role='link' className='logo-unr'   href='https://www.unr.edu.ar/' rel="noopener noreferer" target="_blank" />
         </div>
         <div className="logo-access">
-          <img src="/ext/lib/site/footer/accesibility-logo.png" alt="accesibilidad" />
+          <img name='logo acceso universal'  src="/ext/lib/site/footer/accesibility-logo.png" alt="logo acceso universal" />
         </div>
         <div className='logo-flor'>
-          <img src="/ext/lib/site/footer/logo-flor.png" alt="Flor"/>
+          <img name='Diseño Grafico Flor Balestra.' role='' src="/ext/lib/site/footer/logo-flor.png" alt="Diseño Grafico Flor Balestra."/>
         </div>
         <div className='logo-universidad'>
-          <img src="/ext/lib/site/footer/logo-universidad-que-queremos.png" alt="Universidad que queremos"/>
+          <img name='Logo la universidad que queremos ' role='img' src="/ext/lib/site/footer/logo-universidad-que-queremos.png" alt="Universidad que queremos"/>
         </div>
       </div>
       <div className='terminos'>

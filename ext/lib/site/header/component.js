@@ -164,9 +164,9 @@ class Header extends Component {
                 <a
                   href={`/propuestas?id=${escuela._id}`}
                   className={`header-link header-link-${escuela.abreviacion}`}
-                  role= "Group"
+                  role="Group"
                   aria-label={`Foro ${escuela.nombre}`}
-                  tabIndex= "3"
+                  tabIndex="3"
                   >
                     {/* Foro {escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre}  */}
                   Foro {escuela.nombre} ({escuela.abreviacion})

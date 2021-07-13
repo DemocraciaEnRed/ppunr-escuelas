@@ -37,8 +37,7 @@ export default userConnector(function ThumbsVoto(props) {
               <h2>{ subtitle }</h2>
             }
             <h3>{ props.texts['home-subtitle-text'] }</h3>
-            <div className="btn-container">
-           
+            <div className="btn-container">           
               { config.propuestasAbiertas && <Link
                 to={ userLoggedIn ? `/formulario-idea?id=${userEscuelaId}` : '/formulario-idea' }
                 className="boton-mandar-idea"
