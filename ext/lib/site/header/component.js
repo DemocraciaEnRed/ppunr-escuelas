@@ -165,11 +165,11 @@ class Header extends Component {
                   href={`/propuestas?id=${escuela._id}`}
                   className={`header-link header-link-${escuela.abreviacion}`}
                   role="Group"
-                  aria-label={`Foro ${escuela.nombre}`}
+                  aria-label={`${escuela.nombre} Decide`}
                   tabIndex="3"
                   >
-                    {/* Foro {escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre}  */}
-                  Foro {escuela.nombre} ({escuela.abreviacion})
+                    {/* {escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre} Decide  */}
+                  {escuela.nombre} ({escuela.abreviacion}) Decide
                 </a>
               </div>
             ))}
