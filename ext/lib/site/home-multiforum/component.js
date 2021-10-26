@@ -54,12 +54,12 @@ export default class HomeMultiforumOverride extends Component {
           <BannerForoVecinal title="Presupuesto participativo - Escuelas" texts={this.state.texts} />
           <ThumbsVoto texts={this.state.texts} />
           <div className="banner-escuelas">
-            <h4>Votá las ideas de tu escuela</h4>
+            <h4>Votá los proyectos de tu escuela</h4>
             {this.state.escuelas.length > 0 && this.state.escuelas.map(escuela => (
               <div
               key={escuela._id}
               className={`bloque-escuela bloque-escuela-${escuela.abreviacion}`}>
-                <p>Votá las ideas de {escuela.abreviacion == 'IPS' ? 'el' : 'la'} <b>{escuela.tituloForo}</b></p>
+                <p>Votá los proyectos de {escuela.abreviacion == 'IPS' ? 'el' : 'la'} <b>{escuela.tituloForo}</b></p>
                 <a className="foro-escuela-link"
                  href={`/propuestas?id=${escuela._id}`}>
                   <span className="glyphicon glyphicon-menu-right"></span>

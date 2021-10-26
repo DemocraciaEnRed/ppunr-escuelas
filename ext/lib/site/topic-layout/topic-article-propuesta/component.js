@@ -15,6 +15,7 @@ import AdminActions from './admin-actions/component'
 import Proyectos from 'ext/lib/site/proyectos/component'
 import { Link } from 'react-router'
 import VotarButton from 'ext/lib/site/home-propuestas/topic-card/votar-button/component'
+import VerTodosButton from 'ext/lib/site/home-propuestas/topic-card/ver-todos-button/component'
 import config from 'lib/config'
 
 class TopicArticle extends Component {
@@ -133,6 +134,8 @@ class TopicArticle extends Component {
       `/formulario-idea/${topic.id}?id=${topic.escuela._id}#acerca-idea`
     ;
 
+
+    
     return (
       <div className='topic-article-wrapper'>
         {
@@ -208,7 +211,8 @@ class TopicArticle extends Component {
             </div>
           }
         { ((isLoggedIn && isFromEscuela) || !isLoggedIn) && isProyecto && config.votacionVisible && config.votacionAbierta && <div className='topic-actions topic-article-content'>
-              <VotarButton topic={topic} onVote={onVote} />
+              <VotarButton topic={topic} onVote={onVote} /> &nbsp;
+              <VerTodosButton topic={topic}/>
             </div>
           }
 
