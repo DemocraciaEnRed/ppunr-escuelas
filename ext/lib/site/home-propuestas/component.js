@@ -366,7 +366,7 @@ class HomePropuestas extends Component {
           btnText={config.propuestasAbiertas && isFromEscuela ? 'Subí tu idea' : undefined}
           btnLink={config.propuestasAbiertas && isFromEscuela ? `/formulario-idea?id=${escuela && escuela._id}` : undefined}
           title={config.propuestasVisibles ? 'Ideas' : 'Proyectos'}
-
+          user={this.props.user}
           subtitle={escuela && escuela.tituloForo}
           esculeaAbrev={escuela && escuela.abreviacion}
           />
