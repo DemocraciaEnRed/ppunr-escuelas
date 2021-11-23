@@ -104,7 +104,7 @@ export class TopicCard extends Component {
           )*/}
 
           <div className='topic-creation'>
-            <span>Creado por: <span className='topic-card-author'>{topic.owner.firstName}</span></span>
+            {/* <span>Creado por: <span className='topic-card-author'>{topic.owner.firstName}</span></span> */}
             {topic.owner.claustro &&
               <span className='topic-card-claustro'>({topic.owner.claustro.nombre})</span>
             }
