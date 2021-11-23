@@ -1,7 +1,7 @@
 header.banner-proyectos
   width: 100%
   height: auto;
-  padding: 50px 0px 60px;
+  padding: 110px 0px 60px;
   display: flex
   flex-wrap: wrap
   flex-direction: column
@@ -52,3 +52,27 @@ header.banner-proyectos
     box-shadow: 0 4px 4px 0 rgba(255, 255, 255, 0.25);
     &:hover,&:focus
       color:#990070
+
+header.banner-votos
+  width: 100%
+  height: auto;
+  padding: 20px 0px 20px;
+  position: fixed
+  display: flex
+  flex-wrap: wrap
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  background-color: #6e025c
+  background-position: bottom
+  text-align: center
+  color: #FFF
+  z-index: 999
+
+  .votos-title
+    font-family: 'Roboto', sans-serif
+    font-size: 30px
+    @media screen and (max-width: 250px)
+      font-size: 25px
+    font-weight: 300
+    margin: 0
