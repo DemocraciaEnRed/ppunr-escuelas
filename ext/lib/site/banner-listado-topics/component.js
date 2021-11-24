@@ -4,15 +4,12 @@ export default function BannerListadoTopics(props) {
 
   const votos = (props.user.state.fulfilled && props.user.state.value.voto) ? props.user.state.value.voto : []
 
-  const socialLinksUrl = window.location
-  const twitterText = `Sumate a pensar la Universidad que queremos. ` + socialLinksUrl
-
   const messageVoto = (votos) => {
     switch (3 - votos.length) {
       case 3: return "Tenés 3 votos disponibles"
       case 2: return "Todavía podés votar 2 proyectos!"
       case 1: return "Todavía podés votar 1 proyectos!"
-      case 0: return `Ya votaste tres proyectos. <a target='_blank' href='http://twitter.com/share?text=${twitterText}' rel='noopener noreferrer'>Compartí para que más personas voten</a>`
+      case 0: return `Ya votaste tres proyectos. Compartí para que más personas voten`
       default: return false
     }
   }

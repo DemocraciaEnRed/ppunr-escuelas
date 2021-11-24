@@ -210,11 +210,12 @@ class TopicArticle extends Component {
               isFromEscuela={isFromEscuela} />
             </div>
           }
-        { ((isLoggedIn && isFromEscuela) || !isLoggedIn) && isProyecto && config.votacionVisible && config.votacionAbierta && <div className='topic-actions topic-article-content'>
-              <VotarButton topic={topic} onVote={onVote} /> &nbsp;
+          <div className='topic-actions topic-article-content'>          
+            { ((isLoggedIn && isFromEscuela) || !isLoggedIn) && isProyecto && config.votacionVisible && config.votacionAbierta && <VotarButton topic={topic} onVote={onVote} /> }
+              &nbsp;
               <VerTodosButton topic={topic}/>
             </div>
-          }
+            
 
         <Social
           topic={topic}
