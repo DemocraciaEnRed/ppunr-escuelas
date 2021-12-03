@@ -67,7 +67,7 @@ export default class Page extends Component {
 
                   <div data-trigger="+ ¿Cómo elegimos los proyectos a ejecutarse en 2022?">
                     <p className='p-padding'>
-                      Se realizarán jornadas de votación desde el 24/11 a las 10hs hasta el 03/12 a las 18hs, previa difusión de los proyectos elegibles, para que toda la comunidad de cada Escuela pueda decidir cuáles serán ejecutados hasta alcanzar el total de la partida presupuestaria afectada al PP Escuelas.  Como ningún proyecto puede exceder el 70% del límite presupuestario, al menos dos proyectos resultarán ganadores.
+                      Se realizarán jornadas de votación desde el 24/11 a las 10hs hasta el 03/12 a las 23hs, previa difusión de los proyectos elegibles, para que toda la comunidad de cada Escuela pueda decidir cuáles serán ejecutados hasta alcanzar el total de la partida presupuestaria afectada al PP Escuelas.  Como ningún proyecto puede exceder el 70% del límite presupuestario, al menos dos proyectos resultarán ganadores.
                     </p>
                   </div>
 
