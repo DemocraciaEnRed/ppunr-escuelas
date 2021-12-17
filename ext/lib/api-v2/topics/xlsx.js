@@ -294,46 +294,29 @@ app.get('/export/topics/export-resultados-votantes',
       req.claustrosName = claustrosName
       next()
     }),  
-  // cargar votos
-  function getAllVotos(req, res, next) {
-    api.vote.all(function (err, votes) {
-      if (err) {
-        log('error serving votes from DB:', err)
-        return res.status(500).end()
+  // cargamos votos con sus usuarios y los topics de cada voto (pipelines)
+  (req, res, next) => {
+    api.vote.getVotesPipeline().then(votes => {
+        req.votantes = votes || []
+        next()
       }
-      req.votes = votes
-      next()
-    })
-  },
-  function getAllVotantes(req, res, next) {
-    api.user.all(function (err, users) {
-      if (err) {
-        log('error serving votantes from DB:', err)
-        return res.status(500).end()
-      }
-      req.votantes = users
-      next()
-    })
+    )
   },
   function getXlsx(req, res, next) {
     let infoVotantes = []
+    // No vamos a filtrar por staff
     req.votantes.forEach((votante) => {
-      if (!votante.staff) {
-        if (votante.attrs === undefined) {
-          votante.attrs = {}
-        }
-        
-        const votes_for_author = req.votes.filter((vote) => vote.author.toString() === votante.id)
-        let theVotante = {
-          'ID Votante': `${escapeTxt(votante.id)}`,
-          'Escuela': `${votante.escuelas && votante.escuelas.map((e) => escapeTxt(req.escuelasName[e]))}`,
-          'Claustro': `${escapeTxt(req.claustrosName[votante.claustro])}`,
-          'Voto 1': `${escapeTxt(votes_for_author[0] ? req.topics.find(el => el.id === votes_for_author[0].topic.toString()).mediaTitle : "")}`,
-          'Voto 2': `${escapeTxt(votes_for_author[1] ? req.topics.find(el => el.id === votes_for_author[1].topic.toString()).mediaTitle : "")}`,
-          'Voto 3': `${escapeTxt(votes_for_author[2] ? req.topics.find(el => el.id === votes_for_author[2].topic.toString()).mediaTitle : "")}`,
-        }
-        infoVotantes.push(theVotante);
+      console.log(votante)
+      let theVotante = {
+        'ID Votante': `${escapeTxt(votante.user._id)}`,
+        'Escuela': `${votante.user.escuelas && votante.user.escuelas.map((e) => escapeTxt(req.escuelasName[e])).join(', ')}`,
+        'Claustro': `${escapeTxt(req.claustrosName[votante.user.claustro])}`,
+        'Cantidad Votos': votante.totalVotes,
+        'Voto 1': `${escapeTxt(votante.votes[0] ? votante.votes[0].mediaTitle : '')}`,
+        'Voto 2': `${escapeTxt(votante.votes[1] ? votante.votes[1].mediaTitle : '')}`,
+        'Voto 3': `${escapeTxt(votante.votes[2] ? votante.votes[2].mediaTitle : '')}`,
       }
+      infoVotantes.push(theVotante);
     });
     try {
       res.xls(`resultados-votacion-votantes.xlsx`, infoVotantes);
