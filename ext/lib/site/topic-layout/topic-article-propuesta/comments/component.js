@@ -36,8 +36,9 @@ export class Comments extends Component {
       <div className='topic-comments'>
         <div className='topic-article-content'>
           <h2 className='topic-comments-title'>
-            {t('comments.arguments')}
-            <CommentsOrderBy onSort={this.props.handleSort} />
+            {/* {t('comments.arguments')} */}
+            Comentarios
+            {/* <CommentsOrderBy onSort={this.props.handleSort} /> */}
           </h2>
           {this.state.isFromEscuelaReactive ? (
             enabled ?
@@ -97,4 +98,4 @@ export class Comments extends Component {
   }
 }
 
-export default  commentsConnector(userConnector(Comments))
+export default commentsConnector(userConnector(Comments))
