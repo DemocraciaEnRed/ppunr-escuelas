@@ -46,9 +46,11 @@ export class Comments extends Component {
                 onSubmit={this.props.handleCreate}
                 commentsCreating={this.props.commentsCreating} />
             :
-              <p className='not-in-escuela'>¡Gracias por haber comentando!<br />finalizó el período para hacer comentarios.</p>
-          ) :
-            <p className='not-in-escuela'>No podés hacer comentarios en ideas de esta escuela</p>
+              <p className='alert alert-warning'>¡Gracias por haber comentando! Finalizó el período para hacer comentarios.</p>
+          ) : ( enabled ? 
+              <p className='alert alert-warning'>No podés hacer comentarios en ideas de esta escuela</p>
+              : <p className='alert alert-warning text-center'>¡Gracias por haber comentando! Finalizó el período para hacer comentarios.</p>
+            )
           }
           {!commentsFetch.rejected && (
             <CommentsList
