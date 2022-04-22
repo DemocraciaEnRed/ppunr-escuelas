@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import userConnector from 'lib/site/connectors/user'
+import config from 'lib/config'
 
 export default userConnector(function ThumbsVoto(props) {
   let userState = props.user.state
@@ -37,7 +38,7 @@ export default userConnector(function ThumbsVoto(props) {
               <h2>{ subtitle }</h2>
             }
             <h3>{ props.texts['home-subtitle-text'] }</h3>
-            <div className="btn-container">           
+            {/* <div className="btn-container">           
               { config.propuestasAbiertas && <Link
                 to={ userLoggedIn ? `/formulario-idea?id=${userEscuelaId}` : '/formulario-idea' }
                 className="boton-mandar-idea"
@@ -46,12 +47,31 @@ export default userConnector(function ThumbsVoto(props) {
                 Subí tu idea
               </Link>
               }
-              {/*<Link
+              <Link
                 to='/proyectos'
                 className="boton-azul boton-blanco">
                 Ver Proyectos
-              </Link>*/}
-            </div>
+              </Link>
+            </div> */}
+            {
+              config.propuestasAbiertas && config.propuestasVisibles &&
+              <div className="row btn-container-home">
+                <div className="col-md-3">
+                  <Link
+                    to={ userLoggedIn ? `/formulario-idea?id=${userEscuelaId}` : '/formulario-idea' }
+                    className="boton-mandar-idea">
+                    Subí tu idea
+                  </Link>
+                </div>
+                {/* <div className="col-md-3">
+                  <Link
+                    to='/propuestas'
+                    className="boton-mandar-idea">
+                    Ver Proyectos
+                  </Link>
+                </div> */}
+              </div>
+            }
           </div>
         </div>
         <div className="row cont">
