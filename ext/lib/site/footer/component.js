@@ -1,7 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router'
+import BannerProyectistas from '../banner-proyectistas/component'
+import config from 'lib/config'
 
 const Footer = () => (
+  <div>
+    {
+      config.mostrarFormulariosProyectistas && <BannerProyectistas />
+    }
   <footer className='footer-static'>
     <div className='container'>
       <div className='contacto-detalles'>
@@ -51,6 +57,7 @@ const Footer = () => (
       </div>
     </div>
   </footer>
+  </div>
 )
 
 export default Footer

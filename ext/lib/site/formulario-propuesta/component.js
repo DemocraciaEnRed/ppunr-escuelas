@@ -10,7 +10,7 @@ import Attrs from 'lib/admin/admin-topics-form/attrs/component'
 import { browserHistory } from 'react-router'
 import userConnector from 'lib/site/connectors/user'
 import { Link } from 'react-router'
-import UploadImage from './upload-image'
+// import UploadImage from './upload-image'
 
 // const PROPOSALS_FORUM_NAME = 'propuestas'
 
@@ -33,7 +33,6 @@ class FormularioPropuesta extends Component {
       titulo: '',
       tags: [],
       problema: '',
-      album: [],
       state: '',
       adminComment: '',
       adminCommentReference: '',
@@ -62,7 +61,8 @@ class FormularioPropuesta extends Component {
       forumStore.findOneByName('proyectos'),
       // tags, escuelas y claustros
       tagStore.findAll({field: 'name'}),
-      claustroStore.findAll()
+      claustroStore.findAll(),
+      escuelaStore.findAll()
     ]
 
     // si es edición traemos data del topic también
@@ -71,16 +71,18 @@ class FormularioPropuesta extends Component {
 
     Promise.all(promises).then(results => {
       // topic queda en undefined si no estamos en edit
-      const [ forum, tags, claustros, topic] = results
+      const [ forum, tags, claustros, escuelas, topic] = results
 
       let newState = {
         forum,
         availableTags: tags,
         claustros,
+        escuelas,
         mode: isEdit ? 'edit' : 'new'
       }
 
       if (isEdit)
+        console.log(topic)
         Object.assign(newState, {
           titulo: topic.mediaTitle,
           documento: topic.attrs.documento,
@@ -88,14 +90,13 @@ class FormularioPropuesta extends Component {
           escuela: topic.attrs.escuela,
           claustro: topic.attrs.claustro,
           problema: topic.attrs.problema,
-          album: topic.extra.album ? topic.extra.album : [],
           // los tags se guardan por nombre (¿por qué?) así que buscamos su respectivo objeto
           tags: tags.filter(t => topic.tags.includes(t.name)),
           state: topic.attrs.state,
           adminComment: topic.attrs['admin-comment'],
           adminCommentReference: topic.attrs['admin-comment-reference']
         })
-
+      console.log(isEdit, newState)
       this.setState(newState, () => {
         // updateamos campos de usuario
         // (recién dps del setState tendremos escuelas y claustros cargados)
@@ -285,7 +286,7 @@ class FormularioPropuesta extends Component {
   }
 
   render () {
-    const { forum, escuelas, claustros, escuelaEquivocada, album } = this.state
+    const { forum, escuelas, claustros, escuelaEquivocada } = this.state
 
     if (!forum) return null
     if(config.propuestasAbiertas || (this.state.forum.privileges && this.state.forum.privileges.canChangeTopics)) {
@@ -358,7 +359,7 @@ class FormularioPropuesta extends Component {
                 disabled={true}>
                 {/*<option value=''>Seleccione una escuela</option>*/}
                 {escuelas.length > 0 && escuelas.map(escuela =>
-                  <option key={escuela._id} value={escuela._id} selected={true}>
+                  <option key={escuela._id} value={escuela._id}>
                     {escuela.nombre}
                   </option>
                 )}
@@ -544,24 +545,7 @@ class FormularioPropuesta extends Component {
             }
             </section>
           </form>
-          <div style={{ background: '#ccc', marginTop: '0px', marginBottom: '0px', height: '1px', width: '100%' }} />
-           { this.state.forum.privileges && this.state.forum.privileges.canChangeTopics && this.state.mode === 'edit' && (
-             <div>
-               <div id="album" className="wrapper">
-                 <div className="row">
-                   <div className="col-md-12">
-                   <h2>Album de fotos</h2>
-                   <UploadImage
-                     topicId={this.props.params.id}
-                     album={album}
-                   />
-                   </div>
-                 </div>
-               </div>
-             </div>
-             )
-           }
-           </div>
+          </div>
         )
        }
       </div>
@@ -570,7 +554,7 @@ class FormularioPropuesta extends Component {
     } return (
       <div className='form-propuesta'>
         <div className='propuesta-header'>
-          <h1 className='text-center'>PRESUPUESTO PARTICIPATIVO 2020</h1>
+          <h1 className='text-center'>PRESUPUESTO PARTICIPATIVO {config.currentEdition}</h1>
           {/* <p>¡Acá vas a poder subir tu propuesta para el presupuesto participativo!</p> */}
           <p>¡Gracias a todos y todas por participar!</p>
         </div>
