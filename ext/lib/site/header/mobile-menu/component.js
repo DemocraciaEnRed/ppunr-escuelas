@@ -53,7 +53,7 @@ class MobileMenu extends Component {
                     Foro
                   </Link>
                 </div> */}
-                {this.props.escuelas.length > 0 && this.props.escuelas.map(escuela => (
+                {this.props.escuelas.length > 0 && this.props.escuelas.map((escuela, index) => (
                   <div
                     key={escuela._id}
                     className={`header-item mobile-link ${window.location.href.includes(`propuestas?id=${escuela._id}`) ? 'active' : ''}`}>
@@ -66,6 +66,16 @@ class MobileMenu extends Component {
                     </a>
                   </div>
                 ))}
+                <div className='header-item'>
+                  <Link
+                    to='s/foro-presencial'
+                    className={`header-link ${!~window.location.pathname.includes('foro-presencial') ? 'active' : ''}`}
+                    activeStyle={{ color: '#8C1E81' }}
+                    onClick={this.props.toggleOnClick}
+                    tabIndex="4">
+                    FORO PRESENCIAL
+                  </Link>
+                </div>
                 {/* <div className='header-item mobile-link'>
                   <ProyectosLink />
                 </div>

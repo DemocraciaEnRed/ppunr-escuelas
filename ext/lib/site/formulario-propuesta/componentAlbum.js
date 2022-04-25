@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import forumStore from 'lib/stores/forum-store/forum-store'
-import topicStore from 'lib/stores/topic-store/topic-store
+import topicStore from 'lib/stores/topic-store/topic-store'
 import { browserHistory } from 'react-router'
 import userConnector from 'lib/site/connectors/user'
 import { Link } from 'react-router'
