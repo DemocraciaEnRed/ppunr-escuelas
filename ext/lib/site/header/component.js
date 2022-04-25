@@ -157,7 +157,7 @@ class Header extends Component {
                   Acerca de
               </Link>
             </div>
-            {this.state.escuelas.length > 0 && this.state.escuelas.map(escuela => (
+            {this.state.escuelas.length > 0 && this.state.escuelas.map((escuela,index) => (
               <div
                 key={escuela._id}
                 className={`header-item ${window.location.href.includes(`propuestas?id=${escuela._id}`) ? 'active' : ''}`}>
@@ -166,13 +166,22 @@ class Header extends Component {
                   className={`header-link header-link-${escuela.abreviacion}`}
                   role="Group"
                   aria-label={`${escuela.nombre} Decide`}
-                  tabIndex="3"
+                  tabIndex={index + 3}
                   >
                     {/* {escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre} Decide  */}
-                  {escuela.nombre} ({escuela.abreviacion}) Decide
+                  Foro {/*escuela.nombre*/} {escuela.abreviacion}
                 </a>
               </div>
             ))}
+            <div className={`header-item ${window.location.pathname.includes('/foro-presencial') ? 'active' : ''}`}>
+              <Link
+                to='/s/foro-presencial'
+                className='header-link'
+                tabIndex="6"
+                >
+                  FORO PRESENCIAL
+              </Link>
+            </div>
             { showAdmin &&
               <div className={`header-item ${window.location.pathname.includes('/admin') ? 'active' : ''}`}>
                 <Link
@@ -180,7 +189,7 @@ class Header extends Component {
                   className='header-link'
                   role= "Group"
                   aria-label= 'ingresar como administrador/administradora'
-                  tabIndex= "4"
+                  tabIndex="7"
                   >
                     Admin
                 </Link>
