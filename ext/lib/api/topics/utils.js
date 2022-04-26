@@ -13,6 +13,11 @@ exports.parseTags = (req, res, next) => {
   next()
 }
 
+exports.parseTag = (req, res, next) => {
+  req.query.tag = req.query.tag.split(',').filter((t) => !!t)
+  next()
+}
+
 exports.parseStates = (req, res, next) => {
   req.query.state = req.query.state.split(',').filter((t) => !!t)
   next()
@@ -42,6 +47,7 @@ const queryTopics = (opts) => {
     state,
     forum,
     tags,
+    tag,
     related,
     owners,
     escuela
@@ -55,6 +61,7 @@ const queryTopics = (opts) => {
 
   if (owners && owners.length > 0) query.owner = { $in: owners }
   if (tags && tags.length > 0) query.tags = { $in: tags }
+  if (tag && tag.length > 0) query.tag = { $in: tag }
   if (state && state.length > 0) query['attrs.state'] = { $in: state }
   if (related && related.length > 0) query['attrs.admin-comment-referencia'] = { $regex: `.*${related}.*` }
 
