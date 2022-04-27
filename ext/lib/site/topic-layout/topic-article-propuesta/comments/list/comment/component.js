@@ -125,7 +125,7 @@ export class Comment extends Component {
       comment,
       user,
       forum,
-      topic,
+      topic
       isFromEscuela
     } = this.props
 
@@ -149,9 +149,9 @@ export class Comment extends Component {
         </article>
       )
     }
-
+    let typeClass = (id) => id.slice(-1).charCodeAt(0) % 2 === 0 ? 'type01' : 'type02'
     return (
-      <article className='comments-list-item' id={`comment-${comment.id}`}>
+      <article className={`comments-list-item ${typeClass(comment.id)}`} id={`comment-${comment.id}`}>
         <CommentHeader
           comment={comment}
           isOwner={isOwner}
