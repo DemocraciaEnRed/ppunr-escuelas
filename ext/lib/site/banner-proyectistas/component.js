@@ -61,7 +61,7 @@ class BannerProyectistas extends Component {
       }
       <img src="/ext/lib/site/banner-proyectistas/proyectistas.png" className="image-large" alt="Icono proyectistas"/>
       <p className="title"><strong>¡Sumate como Proyectista!</strong></p>
-      <p className="subtitle">Te invitamos a sumarte como proyectista de la Comisión Universitaria este {config.currentEdition}</p>
+      <p className="subtitle">Te invitamos a sumarte como proyectista del Consejo Escolar este {config.currentEdition}</p>
       {
         (() => {
           if (this.props.user.state.fulfilled && (this.props.user.state.value.proyectista || buttonPressed)) {
