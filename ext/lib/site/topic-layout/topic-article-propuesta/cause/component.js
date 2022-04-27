@@ -72,89 +72,102 @@ export class Cause extends Component {
 
     const { supported, topicClosed } = this.state
     if (user.state.fulfilled && topic.privileges && !topic.privileges.canVote) return null
+    if (user.state.fulfilled && topic.privileges && !topic.privileges.canVote) return null
+    if (!isFromEscuela) return null
+
     return (
       <div className='topics-cause-propuesta'>
-        {/*isSistematizada || isIdeaProyecto  ?
-          <div
-            className='proyectista-wrapper'>
-            <button
-              className={`btn btn-primary btn-${isProyectista ? 'empty' : 'filled'}`}
-              onClick={isFromEscuela && (() => this.handleProyectista(topic.id, !isProyectista))}
-              disabled={!isFromEscuela || isProyectista}>
-              {isProyectista ? '¡Ya sos proyectista!' : '¡Quiero ser proyectista!'}
-            </button>
-          </div>null
-        :
-          <div className='btn btn-primary' disabled={true}>
-            Seguidores:&nbsp;
-            {topic.action.count}&nbsp;
-            <span className='icon-like' />
-          </div>
-        */}
-        <div
-          className='proyectista-wrapper text-center'>
-            <button
-            className={`btn btn-primary btn-${isProyectista ? 'empty' : 'filled'}`}
-            onClick={isFromEscuela && (() => this.handleProyectista(topic.id, !isProyectista))}
-            disabled={!isFromEscuela || isProyectista}>
-            {isProyectista ? '¡Gracias! ¡Registramos tu "Me gusta"!' : 'Me gusta'}&nbsp;&nbsp;({topic.proyectistas.length})&nbsp;&nbsp;<span className='icon-like' />
-          </button>
-            {/* {
-              !this.state.isFromEscuelaReactive && <p><span>Solo miembros de la escuela pueden enviar un "Me Gusta"</span></p>
-            } */}
-          
-        </div>
-        {/*supported && (
-          <button
-            className='btn btn-primary'
-            onClick={this.handleSupport}
-            disabled={topicClosed}>
-            Ya seguís
-          </button>
-        )}
-        {!topicClosed && !supported && (
-          <button
-            disabled={!topic.privileges.canVote}
-            className='btn btn-primary'
-            onClick={this.handleSupport}>
-            Seguir
-          </button>
-        )*/}
-        <div className='likes-total'>
-        </div>
-        {user.state.fulfilled  && topic.privileges && !topic.privileges.canVote && (
-          <p className='text-mute overlay-vote'>
-            <span className='icon-lock' />
-            <span className='text'>
-
-            </span>
-          </p>
-        )}
+        <button
+          className={`btn-like btn-like-${isProyectista ? 'filled' : 'empty'}`}
+          onClick={isFromEscuela && (() => this.handleProyectista(topic.id, !isProyectista))}
+          disabled={isProyectista}>
+          {isProyectista ? '¡Te gusta!' : 'Me gusta'}&nbsp;{isProyectista && `( ${topic.proyectistas.length} )`}&nbsp;<span className='icon-like' />
+        </button>
       </div>
     )
+    // return (
+    //   <div className='topics-cause-propuesta'>
+    //     {/*isSistematizada || isIdeaProyecto  ?
+    //       <div
+    //         className='proyectista-wrapper'>
+    //         <button
+    //           className={`btn btn-primary btn-${isProyectista ? 'empty' : 'filled'}`}
+    //           onClick={isFromEscuela && (() => this.handleProyectista(topic.id, !isProyectista))}
+    //           disabled={!isFromEscuela || isProyectista}>
+    //           {isProyectista ? '¡Ya sos proyectista!' : '¡Quiero ser proyectista!'}
+    //         </button>
+    //       </div>null
+    //     :
+    //       <div className='btn btn-primary' disabled={true}>
+    //         Seguidores:&nbsp;
+    //         {topic.action.count}&nbsp;
+    //         <span className='icon-like' />
+    //       </div>
+    //     */}
+    //     <div
+    //       className='proyectista-wrapper text-center'>
+    //         <button
+    //         className={`btn btn-primary btn-${isProyectista ? 'empty' : 'filled'}`}
+    //         onClick={isFromEscuela && (() => this.handleProyectista(topic.id, !isProyectista))}
+    //         disabled={!isFromEscuela || isProyectista}>
+    //         {isProyectista ? '¡Gracias! ¡Registramos tu "Me gusta"!' : 'Me gusta'}&nbsp;&nbsp;({topic.proyectistas.length})&nbsp;&nbsp;<span className='icon-like' />
+    //       </button>
+    //         {/* {
+    //           !this.state.isFromEscuelaReactive && <p><span>Solo miembros de la escuela pueden enviar un "Me Gusta"</span></p>
+    //         } */}
+          
+    //     </div>
+    //     {/*supported && (
+    //       <button
+    //         className='btn btn-primary'
+    //         onClick={this.handleSupport}
+    //         disabled={topicClosed}>
+    //         Ya seguís
+    //       </button>
+    //     )}
+    //     {!topicClosed && !supported && (
+    //       <button
+    //         disabled={!topic.privileges.canVote}
+    //         className='btn btn-primary'
+    //         onClick={this.handleSupport}>
+    //         Seguir
+    //       </button>
+    //     )*/}
+    //     <div className='likes-total'>
+    //     </div>
+    //     {user.state.fulfilled  && topic.privileges && !topic.privileges.canVote && (
+    //       <p className='text-mute overlay-vote'>
+    //         <span className='icon-lock' />
+    //         <span className='text'>
+
+    //         </span>
+    //       </p>
+    //     )}
+    //   </div>
+    // )
   }
 }
 
 export default userConnector(Cause)
 
-const LoginMessage = () => (
-  <div className='alert alert-info' role='alert'>
-    <span className='icon-heart' />{' '}
-    {t('proposal-options.must-be-signed-in')}.{' '}
-    <Link
-      to={{
-        pathname: '/signin',
-        query: { ref: window.location.pathname }
-      }}>
-      {t('signin.login')}
-    </Link>
-    {' '}{t('common.or')}{' '}
-    <Link
-      to={{
-        pathname: '/signup',
-        query: { ref: window.location.pathname }
-      }}>
-      {t('signin.signup')}
-    </Link>
-  </div>
-)
+// const LoginMessage = () => (
+//   <div className='alert alert-info' role='alert'>
+//     <span className='icon-heart' />{' '}
+//     {t('proposal-options.must-be-signed-in')}.{' '}
+//     <Link
+//       to={{
+//         pathname: '/signin',
+//         query: { ref: window.location.pathname }
+//       }}>
+//       {t('signin.login')}
+//     </Link>
+//     {' '}{t('common.or')}{' '}
+//     <Link
+//       to={{
+//         pathname: '/signup',
+//         query: { ref: window.location.pathname }
+//       }}>
+//       {t('signin.signup')}
+//     </Link>
+//   </div>
+// )

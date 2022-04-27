@@ -15,7 +15,7 @@ import AdminActions from './admin-actions/component'
 import Proyectos from 'ext/lib/site/proyectos/component'
 import { Link } from 'react-router'
 import VotarButton from 'ext/lib/site/home-propuestas/topic-card/votar-button/component'
-import VerTodosButton from 'ext/lib/site/home-propuestas/topic-card/ver-todos-button/component'
+// import VerTodosButton from 'ext/lib/site/home-propuestas/topic-card/ver-todos-button/component'
 import config from 'lib/config'
 
 class TopicArticle extends Component {
@@ -93,6 +93,7 @@ class TopicArticle extends Component {
     } = this.props
 
     const isLoggedIn = user.state && user.state.fulfilled
+    const noUser = user.state.rejected
     const userAttrs = user.state.fulfilled && (user.state.value || {})
     const canCreateTopics = userAttrs.privileges &&
       userAttrs.privileges.canManage &&
@@ -131,7 +132,7 @@ class TopicArticle extends Component {
     const editUrl = userAttrs.staff ?
       urlBuilder.for('admin.topics.id', {forum: forum.name, id: topic.id})
     :
-      `/formulario-idea/${topic.id}?id=${topic.escuela._id}#acerca-idea`
+      `/formulario-idea/${topic.id}?escuela=${topic.escuela._id}`
     ;
 
 
@@ -155,17 +156,15 @@ class TopicArticle extends Component {
         </div>
 
         <div className='topic-article-content entry-content skeleton-propuesta'>
-         <div className='topic-article-status-container'>
+        <div className='topic-article-status-container'>
         {
           (forum.privileges && forum.privileges.canChangeTopics && config.propuestasAbiertas)
             ? (
               <div className='topic-article-content topic-admin-actions'>
-                <Link href={editUrl}>
-                  <a className='btn btn-default'>
-                    <i className='icon-pencil' />
-                    &nbsp;
-                    Editar proyecto
-                  </a>
+                <Link href={editUrl} className='btn btn-default btn-block btn-sm'>
+                  <i className='icon-pencil' />
+                  &nbsp;
+                  Editar proyecto
                 </Link>
               </div>
             )
@@ -173,22 +172,28 @@ class TopicArticle extends Component {
 
                (
                  <div className='topic-article-content topic-admin-actions'>
-                   <a
-                     href={editUrl}
-                     className='btn btn-default'>
-                     <i className='icon-pencil' />
-                      &nbsp;
-                     Editar proyecto
-                   </a>
-                 </div>
+                 <Link href={editUrl} className='btn btn-default btn-block btn-sm'>
+                   <i className='icon-pencil' />
+                   &nbsp;
+                   Editar proyecto
+                 </Link>
+               </div>
                )
         }
         </div>
-          { !isProyecto && <div className='topic-article-nombre'>Autor: {topic.owner.firstName}</div> }
-          { isProyecto && <div className='topic-article-presupuesto'>Monto estimado: ${topic.attrs.presupuesto.toLocaleString()}</div> }
+          <div className="panel panel-default pre-info" style={{borderLeftColor: topic.tag.color }}>
+            <div className="panel-body">
+              { !isProyecto && <div><b>Autor</b><br />{topic.owner.firstName}</div> }
+              <div><b>Escuela</b><br />{topic.escuela.nombre} ({topic.escuela.abreviacion})</div>
+              <div><b>Tema</b><br /><div className="tema" style={{backgroundColor: topic.tag.color }}>{ topic.tag.name }</div></div>
+              <div><b>Tipo</b><br />{ isProyecto ? 'Proyecto' : 'Idea' }</div>
+              {isProyecto && <div><b>Monto estimado</b><br />${topic.attrs.presupuesto.toLocaleString()}</div>}
+              </div>
+          </div>
+          {/* { isProyecto && <div className='topic-article-presupuesto'>Monto estimado: ${topic.attrs.presupuesto.toLocaleString()}</div> } */}
           { /* <h2 className='topic-article-subtitulo'>subtítulo de la propuesta</h2> */ }
 
-          <span className='topic-article-span'>{isProyecto ? 'Proyecto' : 'Idea'}</span>
+          {/* <span className='topic-article-span'>{isProyecto ? 'Proyecto' : 'Idea'}</span> */}
           {topic.attrs.problema &&
             <div
               className='topic-article-p'
@@ -198,34 +203,32 @@ class TopicArticle extends Component {
             </div>
           }
         </div>
+        <Social
+          topic={topic}
+          twitterText={twitterText}
+          socialLinksUrl={socialLinksUrl} />
         {/*topic.attrs.state !== 'pendiente' && topic.attrs.state !== 'no-factible' && topic.attrs.state !== 'integrado' && (topic.attrs.anio === '2019' || topic.attrs.anio === '2020')  &&
           <div className='topic-article-content alert alert-success alert-proyecto' role='alert'>
             Podés ver el proyecto final presentado en la votación <Link to={`/proyectos/topic/${topic.id}`} className='alert-link'>aquí</Link>.
           </div>
         */}
-        {!isProyecto && config.habilitarApoyo && config.propuestasVisibles && <div className='topic-actions topic-article-content'>
-              <Cause
+        <div className='topic-actions topic-article-content'>
+          {!noUser && !isProyecto && config.habilitarApoyo && 
+            <Cause
               topic={topic}
               canVoteAndComment={forum.privileges.canVoteAndComment}
               isFromEscuela={isFromEscuela} />
-            </div>
           }
-          <div className='topic-actions topic-article-content'>          
-            { ((isLoggedIn && isFromEscuela) || !isLoggedIn) && isProyecto && config.votacionVisible && config.votacionAbierta && <VotarButton topic={topic} onVote={onVote} /> }
-              &nbsp;
-              <VerTodosButton topic={topic}/>
-            </div>
-            
-
-        <Social
-          topic={topic}
-          twitterText={twitterText}
-          socialLinksUrl={socialLinksUrl} />
-        <div className='topic-tags topic-article-content'>
+          { ((isLoggedIn && isFromEscuela) || !isLoggedIn) && isProyecto && config.votacionVisible && config.votacionAbierta && <VotarButton topic={topic} onVote={onVote} /> }  
+          <Link href={`/propuestas?id=${topicEscuelaId}`} className="btn btn-go">
+            Ver todas las ideas
+          </Link>
+        </div>
+        {/* <div className='topic-tags topic-article-content'>
           {
             this.props.topic.tags && this.props.topic.tags.map((tag, i) => <span className='topic-article-tag' key={i}>{ tag } </span>)
           }
-        </div>
+        </div> */}
 
         { /*(topic.privileges && !topic.privileges.canEdit && user.state.value && topic.owner.id === user.state.value.id) &&
             (
@@ -250,7 +253,7 @@ class TopicArticle extends Component {
         <div className="topic-article-content">
           <div className='topic-article-album'>
             { ((forum.privileges && forum.privileges.canChangeTopics) || (topic.privileges && topic.privileges.canEdit)) &&
-              <Link href={`/formulario-idea/${topic.id}/album`} className="btn btn-primary btn-sm pull-right text-white"><i className="icon-pencil"></i> Editar</Link>
+              <Link href={`/formulario-idea/${topic.id}/album`} className="btn btn-default btn-sm pull-right"><i className="icon-pencil"></i> Editar album</Link>
             }
             <h3>Album de imagenes</h3>
             <div className="row">

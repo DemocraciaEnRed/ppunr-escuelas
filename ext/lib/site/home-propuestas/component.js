@@ -82,7 +82,7 @@ class HomePropuestas extends Component {
     // igual que filtros de admin (lib/admin/admin/admin.js)
     Promise.all([
       claustroStore.findAll(),
-      tagStore.findAll({field: 'name'}),
+      tagStore.findAll(),
       forumStore.findOneByName('proyectos'),
       escuelaStore.findOneById(this.props.location.query.id),
       topicStore.findAllProyectos(this.props.location.query.id)
@@ -112,7 +112,8 @@ class HomePropuestas extends Component {
 
       escuela: this.props.location.query.id,
       claustros: this.state.claustro,
-      tags: this.state.tags.filter(t => this.state.tag.includes(t.value)).map(t => t.name),
+      // tags: this.state.tags.filter(t => this.state.tag.includes(t.value)).map(t => t.name),
+      tag: this.state.tag.join(''),
       sort: this.state.sort,
       tipoIdea: this.state.tipoIdea
     }
@@ -364,7 +365,7 @@ class HomePropuestas extends Component {
       <div className={`ext-home-ideas ${this.props.user.state.fulfilled ? 'user-logged' : ''}`}>
         <BannerListadoTopics
           btnText={config.propuestasAbiertas && isFromEscuela ? 'Subí tu idea' : undefined}
-          btnLink={config.propuestasAbiertas && isFromEscuela ? `/formulario-idea?id=${escuela && escuela._id}` : undefined}
+          btnLink={config.propuestasAbiertas && isFromEscuela ? `/formulario-idea?escuela=${escuela && escuela._id}` : undefined}
           title={config.propuestasVisibles ? 'Ideas' : 'Proyectos'}
           user={this.props.user}
           subtitle={escuela && escuela.tituloForo}
@@ -413,8 +414,8 @@ class HomePropuestas extends Component {
             claustro={this.state.claustro}
             tags={this.state.tags}
             tag={this.state.tag}
-              tiposIdea={this.state.tiposIdea}
-              tipoIdea={this.state.tipoIdea}
+            tiposIdea={this.state.tiposIdea}
+            tipoIdea={this.state.tipoIdea}
             openVotation={true}
             handleFilter={this.handleFilter}
             handleDefaultFilter={this.handleDefaultFilter}

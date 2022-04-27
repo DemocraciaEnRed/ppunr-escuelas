@@ -42,6 +42,11 @@ app.get('/topics',
         format: 'tags',
         default: ''
       },
+      tag: {
+        type: 'string',
+        format: 'tag',
+        default: ''
+      },
       state: {
         type: 'string',
         format: 'states',
@@ -68,6 +73,7 @@ app.get('/topics',
   utils.parseTipoIdea,
   utils.parseClaustros,
   utils.parseTags,
+  utils.parseTag,
   middlewares.forums.privileges.canView,
   (req, res, next) => {
     // los campos de admitidos de esta api están en EDITABLE_KEYS de ext/lib/api-v2/topics/index.js
