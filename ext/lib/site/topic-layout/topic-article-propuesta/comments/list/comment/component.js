@@ -125,7 +125,7 @@ export class Comment extends Component {
       comment,
       user,
       forum,
-      topic
+      topic,
       isFromEscuela
     } = this.props
 
