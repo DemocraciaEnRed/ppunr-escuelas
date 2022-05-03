@@ -244,7 +244,7 @@ class FormularioPropuesta extends Component {
   hasErrors = () => {
     if (this.state.nombre === '') return true
     if (this.state.documento === '') return true
-    if (this.state.genero === '') return true
+    //if (this.state.genero === '') return true
     if (this.state.email === '') return true
     if (this.state.titulo === '') return true
     if (this.state.escuela === '') return true
@@ -409,7 +409,7 @@ class FormularioPropuesta extends Component {
             </div>
             <div className='form-group'>
               <label className='required' htmlFor='genero' aria-label="">
-                Género
+                Género <small>(Opcional)</small>
               </label>
               <input
                 className='form-control'
@@ -417,7 +417,7 @@ class FormularioPropuesta extends Component {
                 type='text'
                 max='50'
                 name='genero'
-                placeholder=""
+                placeholder="Opcional"
                 value={this.state['genero']}
                 onChange={this.handleInputChange} />
             </div>
@@ -538,7 +538,7 @@ class FormularioPropuesta extends Component {
                <ul>
                   {this.hasErrorsField('nombre') && <li className="error-li">El campo "Nombre y apellido" no puede quedar vacío</li> }
                   {this.hasErrorsField('documento') && <li className="error-li">El campo "DNI" no puede quedar vacío</li> }
-                  {this.hasErrorsField('genero') && <li className="error-li">El campo "Género" no puede quedar vacío</li> }
+                  {/* {this.hasErrorsField('genero') && <li className="error-li">El campo "Género" no puede quedar vacío</li> } */}
                   {this.hasErrorsField('email') && <li className="error-li">El campo "Email" no puede quedar vacío</li> }
                   {this.hasErrorsField('titulo') && <li className="error-li">El campo "Título" no puede quedar vacío</li> }
                   {this.hasErrorsField('escuela') && <li className="error-li">El campo "Escuela" no puede quedar vacío</li> }
