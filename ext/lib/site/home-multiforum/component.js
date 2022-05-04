@@ -5,9 +5,6 @@ import Anchor from 'ext/lib/site/anchor'
 import BannerForoVecinal from 'ext/lib/site/banner-foro-vecinal/component'
 import ThumbsVoto from 'ext/lib/site/thumbs-voto/component'
 // import Barrios from 'ext/lib/site/barrios/component'
-// import Proyectos from 'ext/lib/site/proyectos/component'
-// import ProyectosFactibles from 'ext/lib/site/proyectosFactibles/component'
-// import ProyectosGanadores from 'ext/lib/site/proyectosGanadores/component'
 import Jump from 'ext/lib/site/jump-button/component'
 import Footer from 'ext/lib/site/footer/component'
 // import forumStore from 'lib/stores/forum-store/forum-store'
@@ -70,9 +67,6 @@ export default class HomeMultiforumOverride extends Component {
               </div>
             ))}
           </div>
-          {/* <Proyectos /> */}
-          {/* <ProyectosFactibles /> */}
-          {/* <ProyectosGanadores /> */}
           {/* <Barrios /> */}
           <Jump goTop={this.goTop} />
           <Footer />
