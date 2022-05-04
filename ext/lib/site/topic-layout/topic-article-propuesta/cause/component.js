@@ -57,7 +57,7 @@ export class Cause extends Component {
       })
     }
 
-    topicStore.updateProyectista(id, hacerProyectista).then((res) =>
+    topicStore.updateProyectista(id, hacerProyectista).then((topic) =>
       this.setState({ forceProyectista: true })
     ).catch((err) => { throw err })
   }
@@ -66,7 +66,7 @@ export class Cause extends Component {
     const { user, topic, isFromEscuela } = this.props
     const isSistematizada = topic && topic.attrs && topic.attrs.state == 'sistematizada'
     const isIdeaProyecto = topic && topic.attrs && topic.attrs.state == 'idea-proyecto'
-    const isProyectista = !user.state.rejected && user.state.value && (this.state.forceProyectista || topic.proyectistas && topic.proyectistas.length > 0 && topic.proyectistas.includes(user.state.value.id))
+    const isProyectista = !user.state.rejected && user.state.value && (this.state.forceProyectista || (topic.proyectistas && topic.proyectistas.length > 0 && topic.proyectistas.includes(user.state.value.id)))
 
     if (user.state.pending) return null
 
@@ -81,7 +81,7 @@ export class Cause extends Component {
           className={`btn-like btn-like-${isProyectista ? 'filled' : 'empty'}`}
           onClick={isFromEscuela && (() => this.handleProyectista(topic.id, !isProyectista))}
           disabled={isProyectista}>
-          {isProyectista ? '¡Te gusta!' : 'Me gusta'}&nbsp;{isProyectista && `( ${topic.proyectistas.length} )`}&nbsp;<span className='icon-like' />
+          {isProyectista ? '¡Te gusta!' : 'Me gusta'}&nbsp;{isProyectista && `( ${topic.proyectistas.length + (this.state.forceProyectista ? 1 : 0)} )`}&nbsp;<span className='icon-like' />
         </button>
       </div>
     )

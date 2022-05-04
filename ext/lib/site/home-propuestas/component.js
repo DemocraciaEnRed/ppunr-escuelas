@@ -452,7 +452,7 @@ class HomePropuestas extends Component {
                 <TopicCard
                   key={topic.id}
                   onVote={this.handleVote}
-                    onProyectista={this.handleProyectista}
+                  onProyectista={this.handleProyectista}
                   forum={forum}
                   topic={topic}
                   isFromEscuela={isFromEscuela} />

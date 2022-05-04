@@ -143,9 +143,9 @@ export default class FilterPropuestas extends Component {
             />
         </div>
 
-        {allActiveOpts.length != 0 &&
+        {/* {allActiveOpts.length != 0 &&
           <Badges options={allActiveOpts} handleRemove={handleRemoveBadge} />
-        }
+        } */}
 
       </nav>
     )

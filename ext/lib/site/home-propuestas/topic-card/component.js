@@ -5,6 +5,7 @@ import userConnector from 'lib/site/connectors/user'
 import VotarButton from 'ext/lib/site/home-propuestas/topic-card/votar-button/component'
 // import { config } from 'democracyos-notifier'
 import config from 'lib/config'
+import Cause from './cause/component'
 
 const estados = (state) => {
   switch (state) {
@@ -76,15 +77,16 @@ export class TopicCard extends Component {
       return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     }
 
+    if (!topic) return null
     return (
-      <div className='ext-topic-card ideas-topic-card' onClick={this.handleWrapperClick}>
-        <div className='topic-card-info'>
-          <div className='topic-card-attrs'>
+      <div id="ideas-topic-card" className='ext-topic-card' style={{ borderColor: (topic.tag && topic.tag.color) || '' }}>
+        {/* <div className='topic-card-info'> */}
+          {/* <div className='topic-card-attrs'>
             {topic.eje &&
               <span className='badge badge-default'>{topic.eje.nombre}</span>
             }
             <span className={`estado ${topic.attrs.state}`}>{estados(topic.attrs.state)}</span>
-          </div>
+          </div> */}
 
           {/*!isProyecto && (isSistematizada || isIdeaProyecto ?
             <div className='topic-creation'>
@@ -114,27 +116,38 @@ export class TopicCard extends Component {
             </span>
           </div> */}
 
-          <h1 className={`topic-card-title ${isProyecto && 'mt-5'}`}>
+          {/* <h1 className={`topic-card-title ${isProyecto && 'mt-5'}`}>
             {isProyecto && topic.attrs &&
               <span className='topic-number'>#{topic.attrs.numero}</span>
             }
             {topic.mediaTitle}
           </h1>
-          <p className='topic-card-description'>
-            {createClauses(topic)}
-          </p>
-          { isProyecto &&
-            <p className='topic-card-presupuesto'>
-            Monto estimado: ${topic.attrs.presupuesto.toLocaleString('ar-EG')}
-            </p>
-          }
 
+        </div> */
+        <div className="topic-header-container">
+          <h1 className="topic-card-title" onClick={this.handleWrapperClick}>
+            {isProyecto && topic.attrs &&
+              <span className='topic-number'>#{topic.attrs.numero}</span>
+            }
+            {topic.mediaTitle}
+          </h1>
+          <div className="topic-fecha">{moment(topic.createdAt).format('D-M-YYYY')}</div>
+        </div>}
+        <p className='topic-card-description'>
+          {createClauses(topic)}
+        </p>
+        { isProyecto && topic.attrs &&
+          <div className='topic-card-description'>
+            <b>Monto estimado:</b> ${topic.attrs.presupuesto.toLocaleString('ar-EG')}
+            {/* <b>Monto estimado:</b> ${topic.attrs.presupuesto.toLocaleString()} */}
+          </div>
+        }
+        <div className="tags-container">
+          { topic.tag && <span style={{ backgroundColor: topic.tag.color }}>{topic.tag.name}</span> }
+          { isProyecto ? <span>Proyecto</span> : <span>Idea</span>}
         </div>
-
         <div className='topic-card-footer'>
-          {/* {isProyecto && topic.attrs &&
-          } */}
-          { topic.tags && topic.tags.length > 0 && (
+          {/* { topic.tags && topic.tags.length > 0 && (
               <div className='topic-card-tags'>
                 <span className="glyphicon glyphicon-tag"></span>
                 {topic.tags.slice(0, 12).map((tag, i) => (
@@ -145,9 +158,27 @@ export class TopicCard extends Component {
                   </span>
                 ))}
               </div>
-          ) }
+          ) } */}
 
           <div className='buttons-wrapper'>
+            { isLoggedIn && isFromEscuela && !isProyecto && config.habilitarApoyo && 
+              <Cause
+                topic={topic}
+                canVoteAndComment={isFromEscuela}
+                isFromEscuela={isFromEscuela} />
+            }
+            {
+              isLoggedIn && isFromEscuela && config.habilitarComentarios && 
+              <Link className='btn btn-go' to={`/propuestas/topic/${topic.id}`}>Comentar <i className="icon-comment-alt"></i></Link>
+            }
+            {
+              isLoggedIn && !isFromEscuela &&
+              <Link className='btn btn-go' to={`/propuestas/topic/${topic.id}`}>Ver más</Link>
+            }
+            {
+              !isLoggedIn &&
+              <Link className='btn btn-go' to={`/propuestas/topic/${topic.id}`}>Ver más</Link>
+            }
             {/* antes en className estaba tmb ${likesCssClass} */}
             {/*!isSistematizada && !isIdeaProyecto &&
               <div className={`cause-wrapper`}>
@@ -205,19 +236,19 @@ export class TopicCard extends Component {
             {((isLoggedIn && isFromEscuela) || !isLoggedIn) && isProyecto && config.votacionVisible && config.votacionAbierta &&
               <VotarButton topic={topic} onVote={onVote} />
             }
-              <div
-                className='proyectista-wrapper'>
-                {
-                  ((isLoggedIn && isFromEscuela) || !isLoggedIn) && !isProyecto && !config.votacionVisible && config.propuestasVisibles && config.habilitarApoyo &&
+            {/* <div
+              className='proyectista-wrapper'>
+              {
+                ((isLoggedIn && isFromEscuela) || !isLoggedIn) && !isProyecto && !config.votacionVisible && config.propuestasVisibles && config.habilitarApoyo &&
                 <button
                   className={`btn ${!isProyectista ? '' : 'not-voted'}`}
                   onClick={() => onProyectista(topic.id, !isProyectista)}
                   disabled={isProyectista}>
                   {isProyectista ? 'Te gusta' : 'Me gusta'}&nbsp;&nbsp;<span className='icon-like' />&nbsp;&nbsp;({topic.proyectistas.length})
                 </button>
-}
-                <Link className='btn comment' to={`/propuestas/topic/${topic.id}`}>Ver más</Link>
-              </div>
+                }
+              <Link className='btn comment' to={`/propuestas/topic/${topic.id}`}>Ver más</Link>
+            </div> */}
           </div>
 
         </div>
