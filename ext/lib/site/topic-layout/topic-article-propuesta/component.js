@@ -250,7 +250,7 @@ class TopicArticle extends Component {
               </div>
             )
         */}
-        <div className="topic-article-content">
+        <div className={`topic-article-content ${!config.enableUploadPictures && 'hide'}`}>
           <div className='topic-article-album'>
             { ((forum.privileges && forum.privileges.canChangeTopics) || (topic.privileges && topic.privileges.canEdit)) &&
               <Link href={`/formulario-idea/${topic.id}/album`} className="btn btn-default btn-sm pull-right"><i className="icon-pencil"></i> Editar album</Link>

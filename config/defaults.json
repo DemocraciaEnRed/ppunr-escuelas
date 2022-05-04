@@ -115003,6 +115003,7 @@
     "propuestasTextoCerradas",
     "votacionTextoAbierta",
     "votacionTextoCerrada",
+    "enableUploadPictures",
     "currentEdition"
   ],
   "socialshare": {
@@ -115076,6 +115077,7 @@
   "votacionTextoAbierta": "Podés elegir hasta 3 proyectos y tenés tiempo hasta el 3 de diciembre a las 23hs",
   "votacionTextoCerrada": "Votación cerrada!",
   "currentEdition": "2022",
+  "enableUploadPictures": false,
   "azureStorage": {
     "account": "",
     "container": "",
