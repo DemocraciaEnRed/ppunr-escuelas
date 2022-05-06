@@ -7,32 +7,33 @@ import Anchor from 'ext/lib/site/anchor'
 import Accordion from 'react-responsive-accordion';
 
 export default class Page extends Component {
-  componentDidMount () {
-    this.goTop()
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      openSection: this.props.location.query.q === 'proyectista' ? 12 : 0
+    }
   }
 
-  goTop () {
-    Anchor.goTo('container')
+  componentDidMount () {
+    this.goTop(this.props.location.query.q || 'container')
+  }
+
+  goTop (anchorId) {
+    Anchor.goTo(anchorId)
   }
 
   render () {
+    let { openSection } = this.state
     return (
       <div>
-        {/* <section className="banner-static">
-          <div className="banner"></div>
-          <div className='contenedor'>
-            <div className='fondo-titulo'>
-              <h1>Presupuesto Participativo UNR</h1>
-            </div>
-          </div>
-        </section> */}
         <section className="banner-static-2022">
           <h1>Acerca de</h1>
         </section>
         <div className="post-banner-static-2022 container">
           <span>Inscribirte para a sumarte como proyectista del Consejo Escolar este 2022.</span>
         </div>
-        <Anchor id='container'>
+        <Anchor id='container' startPosition={openSection}>
           <div className="container">
           <div className="">
               <div className="">
@@ -53,7 +54,7 @@ export default class Page extends Component {
                   </div>
                   <div data-trigger="+ ¿Cómo participo?">
                     <p className='p-padding'>
-                      Te invitamos a registrarte <Link href="/signup">aquí</Link> para sumar ideas y comentar las ideas de otros/as participantes.  Podrás también expresar tu interés en apoyar y sumarte a alguna de las propuestas. Es muy importante que fomentemos el diálogo informado y respetuoso.
+                      Te invitamos a <Link href="/signup" className="text-primary">registrarte aquí</Link> para sumar ideas y comentar las ideas de otros/as participantes.  Podrás también expresar tu interés en apoyar y sumarte a alguna de las propuestas. Es muy importante que fomentemos el diálogo informado y respetuoso.
                     </p>
                     <p className='p-padding'>
                       También podrás inscribirte para ser proyectista del Consejo Escolar. No es necesario presentar una idea para ser proyectista.
@@ -129,9 +130,11 @@ export default class Page extends Component {
                     </p>
                   </div>
                   <div data-trigger="+ ¿Qué implica ser proyectista?">
-                    <p className='p-padding'>
-                    Luego de los Foros, la segunda etapa del PP es la conformación de los Consejos Escolares. Los mismos estarán integrados por todas las personas que se hayan propuesto para transformar las ideas en proyectos. Tendremos algunos encuentros, inclusive con técnicos de la Universidad que contribuirán a darle factibilidad a los proyectos, que serán elegidos por la comunidad y serán ejecutados en 2023.
-                    </p>
+                    <Anchor id='proyectista'>
+                      <p className='p-padding'>
+                      Luego de los Foros, la segunda etapa del PP es la conformación de los Consejos Escolares. Los mismos estarán integrados por todas las personas que se hayan propuesto para transformar las ideas en proyectos. Tendremos algunos encuentros, inclusive con técnicos de la Universidad que contribuirán a darle factibilidad a los proyectos, que serán elegidos por la comunidad y serán ejecutados en 2023.
+                      </p>
+                    </Anchor>
                   </div>
                   <div data-trigger="+ ¿Qué condiciones deben respetar los proyectos?">
                     <p className='p-padding'>
