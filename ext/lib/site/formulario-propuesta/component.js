@@ -413,7 +413,6 @@ class FormularioPropuesta extends Component {
               </label>
               <input
                 className='form-control'
-                required
                 type='text'
                 max='50'
                 name='genero'
