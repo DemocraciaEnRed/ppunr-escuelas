@@ -114,11 +114,72 @@ class Page extends Component {
         </section>
         <div className="the-subbanner-container">
           <div className="the-subbanner">
-            Si participaste de manera presencial podés encontrar tu idea en el foro virtual
+            Si participaste de manera presencial podes encontrar tu idea en el foro virtual
           </div>
         </div>
         <div className="the-content">
           <div className="container">
+            <h3 className="text-center">Próximos eventos</h3>
+            <div className="row" style={{ justifyContent: 'center' }}>
+              {
+                isLoading && 
+                <div className="col-md-12">
+                  <p className="h6 text-center">Cargando eventos...</p>
+                </div>
+              }
+              { !isLoading && futureEvents.length > 0 && futureEvents.map((item, index) => (
+                <div className="col-md-4" key={index}>
+                  <div className="agenda-container">
+                    <div className="agenda-top-head">
+                      <div className="tiki-left"/>
+                      <div className="tiki-right"/>
+                    </div>
+                    <div className="agenda-content">
+                      <h5>{item.nombre}</h5>
+                      <p>{item.dia} de {item.mes} de {item.ano}<br/>{item.hora}</p>
+                      <p>{item.lugar}</p>
+                      {/*this.props.user.state.rejected && (
+                        <div>
+                          <Link to={'/signin'} className="agenda-button-assist">ASISTIR</Link>
+                        </div>
+                      )*/}
+                      {/*
+                        (() => {
+                          if (this.props.user.state.fulfilled && item.asistentes.includes(this.props.user.state.value.id)) {
+                            return (
+                              <div className="agenda-button-confirm">
+                                ASISTIRÉ <i className="glyphicon glyphicon-ok-sign"></i>
+                              </div>
+                            )
+                          }
+                          if (this.props.user.state.fulfilled && !item.asistentes.includes(this.props.user.state.value.id) && !buttonPressed.includes(item._id)) {
+                            return (
+                              <div onClick={() => this.onButtonPressed(item._id)} className="agenda-button-assist">
+                                ASISTIR
+                              </div>
+                            )
+                          }
+                          if (buttonPressed.includes(item._id)){
+                            return (
+                              <p className="text-success"><strong>¡Muchas gracias!</strong><br/><small>Te has anotado al evento con éxito.</small></p>
+                            )
+                          }
+                        })()
+                      */}
+                    </div>
+                    <div className="add-to-calendar"><small className=""><a href={item.calendarURL} target="_blank" className="add-to-calendar-link">+ Agregar a Google Calendar</a></small></div>
+                  </div>
+                </div>
+              ))}
+              {
+                !isLoading && futureEvents.length === 0 && (
+                <div className="col-md-12">
+                  <p className="h6 text-center">No hay futuros eventos para listar</p>
+                </div>
+                )
+              }
+            </div>
+            <br/>
             <h3 className="text-center">Eventos pasados</h3>
             <div className="row" style={{ justifyContent: 'center' }}>
               {
