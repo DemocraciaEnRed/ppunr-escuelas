@@ -62,7 +62,8 @@ class MobileMenu extends Component {
                       className={`header-link header-link-${escuela.abreviacion}`}
                       onClick={this.props.toggleOnClick}>
                         {/* {escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre} elige */}
-                      {escuela.nombre} ({escuela.abreviacion}) Decide
+                      {/* {escuela.nombre} ({escuela.abreviacion}) Decide */}
+                      Foro {escuela.nombre}
                     </a>
                   </div>
                 ))}
