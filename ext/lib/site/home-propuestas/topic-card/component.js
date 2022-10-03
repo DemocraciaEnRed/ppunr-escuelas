@@ -25,6 +25,12 @@ const estados = (state) => {
 }
 
 export class TopicCard extends Component {
+  state = {
+    fullText: false
+  }
+
+
+
   handleWrapperClick = (e) => {
     // https://stackoverflow.com/questions/22119673/find-the-closest-ancestor-element-that-has-a-specific-class
     function findAncestor (el, cls) {
@@ -42,7 +48,8 @@ export class TopicCard extends Component {
       window.open(`/propuestas/topic/${this.props.topic.id}`, '_blank');
   }
   render() {
-    const { topic, onVote, onProyectista, user, isFromEscuela } = this.props
+    const { fullText } = this.state
+    const { topic, onVote, onProyectista, user, voterInformation } = this.props
 
     const isStaff = !user.state.rejected && user.state.value.staff
     const isLoggedIn = user.state && user.state.fulfilled
@@ -78,9 +85,11 @@ export class TopicCard extends Component {
     }
 
     if (!topic) return null
+
+    const text = createClauses(topic, fullText)
+
     return (
-      <div id="ideas-topic-card" className='ext-topic-card' style={{ borderColor: (topic.tag && topic.tag.color) || '' }}>
-        {/* <div className='topic-card-info'> */}
+      <div id="ideas-topic-card" className={`ext-topic-card ${fullText ? 'focus' : ''}`} style={{ borderColor: (topic.tag && topic.tag.color) || '' }}>        {/* <div className='topic-card-info'> */}
           {/* <div className='topic-card-attrs'>
             {topic.eje &&
               <span className='badge badge-default'>{topic.eje.nombre}</span>
@@ -134,7 +143,7 @@ export class TopicCard extends Component {
           <div className="topic-fecha">{moment(topic.createdAt).format('D-M-YYYY')}</div>
         </div>}
         <p className='topic-card-description'>
-          {createClauses(topic)}
+          {text}
         </p>
         { isProyecto && topic.attrs &&
           <div className='topic-card-description'>
@@ -161,23 +170,19 @@ export class TopicCard extends Component {
           ) } */}
 
           <div className='buttons-wrapper'>
-            { isLoggedIn && isFromEscuela && !isProyecto && config.habilitarApoyo && 
+            { isLoggedIn && voterInformation.isFromEscuela && !isProyecto && config.habilitarApoyo && 
               <Cause
                 topic={topic}
-                canVoteAndComment={isFromEscuela}
-                isFromEscuela={isFromEscuela} />
+                canVoteAndComment={voterInformation.isFromEscuela}
+                isFromEscuela={voterInformation.isFromEscuela} />
             }
             {
-              isLoggedIn && isFromEscuela && config.habilitarComentarios && 
+              isLoggedIn && voterInformation.isFromEscuela && config.habilitarComentarios && 
               <Link className='btn btn-go' to={`/propuestas/topic/${topic.id}`}>Comentar <i className="icon-comment-alt"></i></Link>
             }
             {
-              isLoggedIn && !isFromEscuela &&
-              <Link className='btn btn-go' to={`/propuestas/topic/${topic.id}`}>Ver más</Link>
-            }
-            {
-              !isLoggedIn &&
-              <Link className='btn btn-go' to={`/propuestas/topic/${topic.id}`}>Ver más</Link>
+              true &&
+              <button className='btn btn-go' onClick={() => this.setState({fullText: !fullText})}>{fullText ? "Ver menos" : "Ver más"}</button>
             }
             {/* antes en className estaba tmb ${likesCssClass} */}
             {/*!isSistematizada && !isIdeaProyecto &&
@@ -186,13 +191,13 @@ export class TopicCard extends Component {
                   Seguidores
                   {likesCountDiv}
                 </div>
-                {!isFromEscuela && (
+                {!voterInformation.isFromEscuela && (
                   <button disabled className='btn btn-primary btn-filled'>
                     Seguir
                     {likesCountDiv}
                   </button>
                 )}
-                {isFromEscuela && topic.voted && (
+                {voterInformation.isFromEscuela && topic.voted && (
                   <button
                     onClick={() => onVote(topic.id, topic.voted)}
                     className='btn btn-primary btn-filled'>
@@ -200,7 +205,7 @@ export class TopicCard extends Component {
                     {likesCountDiv}
                   </button>
                 )}
-                {isFromEscuela && !topic.voted && (
+                {voterInformation.isFromEscuela && !topic.voted && (
                   <button
                     disabled={!topic.privileges.canVote || isStaff}
                     onClick={() => onVote(topic.id, topic.voted)}
@@ -222,7 +227,7 @@ export class TopicCard extends Component {
                 </div>
               </div>
             */}
-            {/*isFromEscuela && isSistematizada &&
+            {/*voterInformation.isFromEscuela && isSistematizada &&
               <div
                 className='proyectista-wrapper'>
                 <button
@@ -233,13 +238,13 @@ export class TopicCard extends Component {
                 </button>
               </div>
             */}
-            {((isLoggedIn && isFromEscuela) || !isLoggedIn) && isProyecto && config.votacionVisible && config.votacionAbierta &&
-              <VotarButton topic={topic} onVote={onVote} />
-            }
+            { isProyecto && voterInformation.isFromEscuela && config.votacionVisible && config.votacionAbierta &&
+              <VotarButton topic={topic} onVote={onVote} voterInformation={voterInformation} />
+            }       
             {/* <div
               className='proyectista-wrapper'>
               {
-                ((isLoggedIn && isFromEscuela) || !isLoggedIn) && !isProyecto && !config.votacionVisible && config.propuestasVisibles && config.habilitarApoyo &&
+                ((isLoggedIn && voterInformation.isFromEscuela) || !isLoggedIn) && !isProyecto && !config.votacionVisible && config.propuestasVisibles && config.habilitarApoyo &&
                 <button
                   className={`btn ${!isProyectista ? '' : 'not-voted'}`}
                   onClick={() => onProyectista(topic.id, !isProyectista)}
@@ -257,7 +262,7 @@ export class TopicCard extends Component {
   }
 }
 
-function createClauses({ attrs, clauses }) {
+function createClauses({ attrs, clauses }, fullText=false) {
   let div = document.createElement('div')
   let content
   if (!attrs) {
@@ -275,6 +280,9 @@ function createClauses({ attrs, clauses }) {
   }
   div.innerHTML = content
   let returnText = div.textContent.replace(/\r?\n|\r/g, '')
+  if (fullText) {
+    return returnText
+  }  
   return returnText.length > 400 ? returnText.slice(0, 400) + '...' : returnText
 }
 

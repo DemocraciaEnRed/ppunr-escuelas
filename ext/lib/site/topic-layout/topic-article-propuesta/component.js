@@ -81,7 +81,7 @@ class TopicArticle extends Component {
   }
 
   twitText = () => {
-    return encodeURIComponent('Sumate a pensar la Universidad que queremos. ')
+    return encodeURIComponent('Sumate a elegir proyectos para la Universidad que queremos. ')
   }
 
   render () {
@@ -219,7 +219,10 @@ class TopicArticle extends Component {
               canVoteAndComment={forum.privileges.canVoteAndComment}
               isFromEscuela={isFromEscuela} />
           }
-          { ((isLoggedIn && isFromEscuela) || !isLoggedIn) && isProyecto && config.votacionVisible && config.votacionAbierta && <VotarButton topic={topic} onVote={onVote} /> }  
+          {/*           
+            { ((isLoggedIn && isFromEscuela) || !isLoggedIn) && isProyecto && config.votacionVisible && config.votacionAbierta && <VotarButton topic={topic} onVote={onVote} /> }   
+          */}
+
           <Link href={`/propuestas?id=${topicEscuelaId}`} className="btn btn-go">
             Ver todas las ideas
           </Link>

@@ -179,7 +179,7 @@ class Header extends Component {
                 className='header-link'
                 tabIndex="6"
                 >
-                  FORO PRESENCIAL
+                  Votación presencial
               </Link>
             </div>
             { showAdmin &&

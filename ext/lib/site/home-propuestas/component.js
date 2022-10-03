@@ -67,7 +67,16 @@ class HomePropuestas extends Component {
       noMore: null,
 
       selectedProyecto: null,
-      searchableProyectos: []
+      searchableProyectos: [],
+
+      topicsVoted: [],
+      dialogVotacion: false,
+      dniP: '',
+      claustroP: null,
+      dialogMessage: null,
+      isDNIInPadron: false,
+      escuelasP: [],
+      votesP: []
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -219,7 +228,9 @@ class HomePropuestas extends Component {
 
   // esta misma función está en ext/lib/site/topic-layout/component.js
   handleVote = (id, isVoted) => {
+    const { forum } = this.state
     const { user } = this.props
+    const voterInformation = this.getVoterInformation()
 
     if (user.state.rejected) {
       return browserHistory.push({
@@ -229,13 +240,22 @@ class HomePropuestas extends Component {
     }
 
     //topicStore.vote(id, !isVoted ? 'apoyo-idea' : 'no-apoyo-idea').then((res) => {
-    topicStore.vote(id, 'voto').then((res) => {
-      const topics = this.state.topics
-      const index = topics.findIndex((t) => t.id === id)
-      topics[index] = res
-      user.fetch(true).then(() => this.setState({ topics }))
-    }).catch((err) => { throw err })
-  }
+      topicStore.vote(id, 'voto', voterInformation.dni)
+      .then((res) => {
+        const topics = this.state.topics
+        const index = topics.findIndex((t) => t.id === id)
+        topics[index] = res
+        user.fetch(true).then(() => {
+          this.setState({ topics })
+        })
+      })
+      .then((res) => {
+        if (forum.privileges && forum.privileges.canEdit) {
+          this.checkPadron()
+        }
+      })
+      .catch((err) => { throw err })
+}
 
   handleProyectista = (id, hacerProyectista) => {
     const { user } = this.props
@@ -346,28 +366,130 @@ class HomePropuestas extends Component {
     }
   }
 
+  handlerVotacion = (e) => {
+    e.preventDefault()
+
+    this.setState({ dialogVotacion: !this.state.dialogVotacion, dialogMessage: null, dniP: '', claustroP: null, votesP: [], isDNIInPadron: false, escuelasP: [] }) //, () => this.fetchTopics());
+  }
+
+  checkPadron = () => {
+
+    const {dniP, claustroP, forum} = this.state
+
+    this.setState({
+      dialogMessage: null,
+    }, () => {
+      window.fetch(`api/padron/search/dni?dni=${dniP}&forum=${forum.name}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      })
+      .then(res => res.json())
+      .then(res => {
+        // if response is an empty object
+        if (Object.keys(res).length === 0){
+          // then user is not in padron
+          this.setState({
+            dialogMessage: "El DNI solicitado no se encuentra en el Padrón"
+          })
+        } else {
+          this.setState({dialogVotacion: false, isDNIInPadron: true, votesP: res.votes, escuelasP: res.escuelas.map(e => e._id)})
+        }
+      })
+    })
+  }
+
+  getVoterInformation() {
+    const { escuela, forum, dniP, isDNIInPadron, votesP, escuelasP } = this.state
+    const { user } = this.props
+    const userLoggedIn = user.state && user.state.fulfilled
+    let dni = ''
+    let votes = []
+    let isFromEscuela = false
+    if (forum) {
+      if (userLoggedIn && forum.privileges && forum.privileges.canEdit) {
+        if (isDNIInPadron) {
+          dni = dniP
+          votes = votesP
+          isFromEscuela = escuelasP && escuelasP.includes(escuela._id)
+        } else {
+          dni = ''
+          votes = []
+          isFromEscuela = false
+        }
+      } else if (user && user.state && user.state.value && !forum.privileges.canEdit) {
+        dni = user.state.value.dni
+        votes = userLoggedIn && user.state.value && user.state.value.voto
+        const userEscuelasIds = user.state.fulfilled && user.state.value.escuelas.map(e => e._id)
+        isFromEscuela = escuela && userEscuelasIds && userEscuelasIds.includes(escuela._id)
+      }
+
+    }
+    
+    
+
+    return {userLoggedIn, dni, votes, isFromEscuela }
+  }
+
+
+
+
+
   render () {
     //console.log('Render main')
 
-    const { forum, topics, escuela, searchableProyectos, selectedProyecto } = this.state
+    const { 
+      forum, topics, searchableProyectos, 
+      selectedProyecto, dialogVotacion, 
+      claustros, dialogMessage, 
+      dniP, claustroP, escuela
+    } = this.state
     const { user } = this.props
 
-    let filteredTopics;
 
-    const userEscuelasIds = user.state.fulfilled && user.state.value.escuelas.map(e => e._id)
-    const isFromEscuela = escuela && userEscuelasIds && userEscuelasIds.includes(escuela._id)
+    let filteredTopics;
 
     if (selectedProyecto)
       filteredTopics = topics.filter(t => t.id == selectedProyecto.value)
 
+    const voterInformation = this.getVoterInformation()
+
     return (
 
-      <div className={`ext-home-ideas ${this.props.user.state.fulfilled ? 'user-logged' : ''}`}>
+      <div className={`ext-home-ideas ${user.state.fulfilled ? 'user-logged' : ''}`}>
+
+        {dialogVotacion && <dialog
+                    className='dialog-votacion '
+                    open
+                >
+                  <span onClick={this.handlerVotacion}>&times;</span>
+                  <p className='intro text-center'>* Módulo de votación presencial, para administradores</p>
+                  <h4 className='text-center'>Bienvenida/o a la votación de PPUNR 2022</h4>
+                  <h5 className='text-center'>Ingrese los datos del Votante</h5>
+                  <label htmlFor="dniP">DNI</label>
+                  <input id="dniP" type="text" name="dniP" className='form-control' onChange={(e) => this.setState({dniP: e.target.value})} />                
+                  <label htmlFor="claustroP">Claustro</label>
+                  <select id="claustroP" type="text" name="claustroP" className='form-control' onChange={(e) => this.setState({claustroP: e.target.value})} >
+                    <option value=""> --- </option>
+                    {claustros.map(c => <option value={c.value}>{c.name}</option>)}
+                  </select>                                    
+                  {dialogMessage && <h5 className='text-danger'>{dialogMessage}</h5>}
+                  <br />
+                  <button disabled={(!dniP || !claustroP)} className='btn btn-aceptar' onClick={() => this.checkPadron()}>Aceptar</button>
+              </dialog>
+        }
+
+
         <BannerListadoTopics
-          btnText={config.propuestasAbiertas && isFromEscuela ? 'Subí tu idea' : undefined}
-          btnLink={config.propuestasAbiertas && isFromEscuela ? `/formulario-idea?escuela=${escuela && escuela._id}` : undefined}
-          title={config.propuestasVisibles ? 'Ideas' : 'Proyectos'}
-          user={this.props.user}
+          btnText={config.propuestasAbiertas && voterInformation.isFromEscuela ? 'Subí tu idea' : undefined}
+          btnLink={config.propuestasAbiertas && voterInformation.isFromEscuela ? `/formulario-idea?escuela=${escuela && escuela._id}` : undefined}
+          title={config.propuestasVisibles ? 'Conocé las ideas del PPUNR' : 'Bienvenido/a a la votación del PPUNR'}
+          handlerVotacion={config.votacionAbierta && forum && forum.privileges && forum.privileges.canEdit && this.handlerVotacion}
+          user={user}
+          voterInformation={voterInformation}
           subtitle={escuela && escuela.tituloForo}
           esculeaAbrev={escuela && escuela.abreviacion}
           />
@@ -404,7 +526,7 @@ class HomePropuestas extends Component {
         </div>
 
         <div className='container topics-container'>
-          {!isFromEscuela && false &&
+          {!voterInformation.isFromEscuela && false &&
             <div className='not-in-escuela-reminder'>
             <span><i className="glyphicon glyphicon-warning-sign"></i>Recordá que podés subir ideas en el foro de tu escuela</span>
             </div>
@@ -455,7 +577,9 @@ class HomePropuestas extends Component {
                   onProyectista={this.handleProyectista}
                   forum={forum}
                   topic={topic}
-                  isFromEscuela={isFromEscuela} />
+                  voterInformation={voterInformation}
+                  
+                  />
               ))}
               {!filteredTopics && topics && !this.state.noMore && (
                 <div className='more-topics'>
