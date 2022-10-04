@@ -47,7 +47,7 @@ export default class Page extends Component {
                     Pueden participar docentes, nodocentes, estudiantes y graduados/as de cada Escuela: Agrotécnica, Superior y Politécnico.
                     </p>
                   </div>
-                  <div data-trigger="+ ¿En qué se basa la etapa de Foros del PP Escuelas?">
+                  {/* <div data-trigger="+ ¿En qué se basa la etapa de Foros del PP Escuelas?">
                     <p className='p-padding'>
                     Cada Escuela tiene su propio Foro con el objetivo de que los/as integrantes de la comunidad propongan ideas que aporten en la construcción de la Escuela. Estarán abiertos desde el 10 de mayo al 24 de mayo. También podrás ahora sumarte para ser proyectista.
                     </p>
@@ -123,19 +123,19 @@ export default class Page extends Component {
                     <p className='p-padding'>
                     Otros/as participantes pueden comentar tu idea o apoyarla. Te invitamos a entrar en diálogo con otros/as participantes. Luego haremos una sistematización de ideas por temas y serán desarrolladas por quienes se inscriban para ser proyectistas de cada Consejo Escolar. 
                     </p>
-                  </div>
+                  </div> */}
                   <div data-trigger="+ Si no participé de una etapa anterior, ¿puedo sumarme?">
                     <p className='p-padding'>
-                    Podés sumarte en cualquier etapa del proceso aunque no hayas participado de las anteriores. Es decir, podés no haber propuesto o comentado ideas pero interesarte por sumar tu aporte como proyectista.
+                    Podés sumarte en cualquier etapa del proceso aunque no hayas participado de las anteriores. Es decir, podés no haber propuesto o comentado ideas pero interesarte por sumar tu aporte como proyectista o elegir en la votación tus proyectos favoritos para ser ejecutados. 
                     </p>
                   </div>
-                  <div data-trigger="+ ¿Qué implica ser proyectista?">
+                  {/* <div data-trigger="+ ¿Qué implica ser proyectista?">
                     <Anchor id='proyectista'>
                       <p className='p-padding'>
                       Luego de los Foros, la segunda etapa del PP es la conformación de los Consejos Escolares. Los mismos estarán integrados por todas las personas que se hayan propuesto para transformar las ideas en proyectos. Tendremos algunos encuentros, inclusive con técnicos de la Universidad que contribuirán a darle factibilidad a los proyectos, que serán elegidos por la comunidad y serán ejecutados en 2023.
                       </p>
                     </Anchor>
-                  </div>
+                  </div> */}
                   <div data-trigger="+ ¿Qué condiciones deben respetar los proyectos?">
                     <p className='p-padding'>
                       <ul>
@@ -155,7 +155,7 @@ export default class Page extends Component {
                   </div>
                   <div data-trigger="+ ¿Cómo elegiremos los proyectos a ejecutarse en 2023?">
                     <p className='p-padding'>
-                    Se realizarán jornadas de votación, previa difusión de los proyectos elegibles, para que toda la comunidad de la Escuela pueda decidir cuáles serán ejecutados hasta alcanzar el total de la partida presupuestaria disponible.
+                    Se realizarán jornadas de votación (del 12 al 21 de octubre de 2022), previa difusión de los proyectos elegibles, para que toda la comunidad de la Escuela pueda decidir cuáles serán ejecutados hasta alcanzar el total de la partida presupuestaria disponible.
                     </p>
                   </div>
                 </Accordion>
