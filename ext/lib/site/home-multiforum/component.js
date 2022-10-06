@@ -61,8 +61,8 @@ export default class HomeMultiforumOverride extends Component {
                     <a className="foro-escuela-link"
                     href={`/propuestas?id=${escuela._id}`}>
                       <span className="glyphicon glyphicon-menu-right"></span>
-                      Accedé al Foro<br />
-                      <span>{escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre}</span>
+                      Accedé a<br />
+                      <span>{escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre}</span> decide
                     </a>  
                   </div>
                 ))}
