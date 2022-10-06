@@ -114,7 +114,8 @@ class Page extends Component {
         </section>
         <div className="the-subbanner-container">
           <div className="the-subbanner">
-          Finalizó la etapa de los Foros.<br />¡Ingresá para conocer las ideas!
+          {/* Finalizó la etapa de los Foros.<br />¡Ingresá para conocer las ideas! */}
+          En estos puntos UNR Decide podrás votar de manera presencial. Te esperamos!
           </div>
         </div>
         <div className="the-content">

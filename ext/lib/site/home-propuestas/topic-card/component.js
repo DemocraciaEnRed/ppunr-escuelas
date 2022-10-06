@@ -147,8 +147,7 @@ export class TopicCard extends Component {
         </p>
         { isProyecto && topic.attrs &&
           <div className='topic-card-description'>
-            <b>Monto estimado:</b> ${topic.attrs.presupuesto.toLocaleString('ar-EG')}
-            {/* <b>Monto estimado:</b> ${topic.attrs.presupuesto.toLocaleString()} */}
+            <b>Monto estimado:</b> ${topic.attrs.presupuesto ? topic.attrs.presupuesto.toLocaleString('ar-EG'): 0}
           </div>
         }
         <div className="tags-container">

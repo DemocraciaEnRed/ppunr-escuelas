@@ -56,7 +56,8 @@ export default class HomeMultiforumOverride extends Component {
               <div className="row" style={{width: '100%'}}>
                 {this.state.escuelas.map(escuela => (
                   <div className="bloque-escuela col-md-4" key={escuela.id}>
-                    <p>Subí ideas para {escuela.abreviacion == 'IPS' ? 'el' : 'la'} <b>{escuela.tituloForo}</b></p>
+                    {/* <p>Subí ideas para {escuela.abreviacion == 'IPS' ? 'el' : 'la'} <b>{escuela.tituloForo}</b></p> */}
+                    <p>Votá los proyectos d{escuela.abreviacion == 'IPS' ? 'el' : 'e la'} <b>{escuela.tituloForo}</b></p>
                     <a className="foro-escuela-link"
                     href={`/propuestas?id=${escuela._id}`}>
                       <span className="glyphicon glyphicon-menu-right"></span>

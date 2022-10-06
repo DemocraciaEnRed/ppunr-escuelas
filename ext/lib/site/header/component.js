@@ -169,7 +169,8 @@ class Header extends Component {
                   tabIndex={index + 3}
                   >
                     {/* {escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre} Decide  */}
-                  Foro {escuela.nombre} ({escuela.abreviacion})
+                  {escuela.nombre} ({escuela.abreviacion}) decide
+                  {/* Foro {escuela.nombre} ({escuela.abreviacion}) */}
                 </a>
               </div>
             ))}

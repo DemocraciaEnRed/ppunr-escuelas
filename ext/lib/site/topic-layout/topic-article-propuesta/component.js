@@ -187,7 +187,7 @@ class TopicArticle extends Component {
               <div><b>Escuela</b><br />{topic.escuela.nombre} ({topic.escuela.abreviacion})</div>
               <div><b>Tema</b><br /><div className="tema" style={{backgroundColor: topic.tag.color }}>{ topic.tag.name }</div></div>
               <div><b>Tipo</b><br />{ isProyecto ? 'Proyecto' : 'Idea' }</div>
-              {isProyecto && <div><b>Monto estimado</b><br />${topic.attrs.presupuesto.toLocaleString()}</div>}
+              {isProyecto && topic.attrs.presupuesto && <div><b>Monto estimado</b><br />${topic.attrs.presupuesto.toLocaleString()}</div>}
               </div>
           </div>
           {/* { isProyecto && <div className='topic-article-presupuesto'>Monto estimado: ${topic.attrs.presupuesto.toLocaleString()}</div> } */}
