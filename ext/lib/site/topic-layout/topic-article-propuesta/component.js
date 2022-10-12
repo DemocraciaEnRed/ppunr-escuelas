@@ -224,7 +224,8 @@ class TopicArticle extends Component {
           */}
 
           <Link href={`/propuestas?id=${topicEscuelaId}`} className="btn btn-go">
-            Ver todas las ideas
+            {/* Ver todas las ideas */}
+            Ver todos los proyectos
           </Link>
         </div>
         {/* <div className='topic-tags topic-article-content'>

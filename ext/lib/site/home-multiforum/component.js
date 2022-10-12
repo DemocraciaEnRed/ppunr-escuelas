@@ -52,7 +52,8 @@ export default class HomeMultiforumOverride extends Component {
           <ThumbsVoto texts={this.state.texts} />
           <div className="banner-escuelas">
             <div className="container">
-            <h4>Participá subiendo ideas de tu escuela</h4>
+            {/* <h4>Participá subiendo ideas de tu escuela</h4> */}
+            <h4>Votá los proyectos de tu escuela</h4>
               <div className="row" style={{width: '100%'}}>
                 {this.state.escuelas.map(escuela => (
                   <div className="bloque-escuela col-md-4" key={escuela.id}>
