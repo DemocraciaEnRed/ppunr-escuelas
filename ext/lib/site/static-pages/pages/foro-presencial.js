@@ -110,7 +110,7 @@ class Page extends Component {
     return (
       <div id="foro-presencial">
         <section className="the-banner">
-          Foro presencial
+          Votación presencial
         </section>
         <div className="the-subbanner-container">
           <div className="the-subbanner">

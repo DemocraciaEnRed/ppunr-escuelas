@@ -61,7 +61,6 @@ class HomePropuestas extends Component {
       tiposIdea: [],
       tipoIdea: defaultValues.tipoIdea,
       sort: defaultValues.sort,
-      tipoIdea: defaultValues.tipoIdea,
 
       page: null,
       noMore: null,
@@ -228,7 +227,7 @@ class HomePropuestas extends Component {
 
   // esta misma función está en ext/lib/site/topic-layout/component.js
   handleVote = (id, isVoted) => {
-    const { forum } = this.state
+    const { forum, claustroP } = this.state
     const { user } = this.props
     const voterInformation = this.getVoterInformation()
 
@@ -239,8 +238,10 @@ class HomePropuestas extends Component {
       })
     }
 
+    const claustro = claustroP || user.state.value.claustro._id
+
     //topicStore.vote(id, !isVoted ? 'apoyo-idea' : 'no-apoyo-idea').then((res) => {
-      topicStore.vote(id, 'voto', voterInformation.dni)
+      topicStore.vote(id, 'voto', voterInformation.dni, claustro)
       .then((res) => {
         const topics = this.state.topics
         const index = topics.findIndex((t) => t.id === id)
