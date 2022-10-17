@@ -423,7 +423,7 @@ app.get('/export/topics/export-resultados-VOTOS',
         //   theVotante['Escuela'] = `${escapeTxt(req.escuelasName[votante.votes[0].escuela])}`
         // }
         if (votante.claustro) {
-          theVoto['Claustro'] = `${votante.claustro ? escapeTxt(req.claustrosName[votante.claustro]) : '-')}`
+          theVoto['Claustro'] = `${votante.claustro ? escapeTxt(req.claustrosName[votante.claustro]) : '-'}`
         }
       }
       infoVoto.push(theVoto);
