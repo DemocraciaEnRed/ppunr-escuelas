@@ -88,6 +88,14 @@ export class TopicCard extends Component {
 
     const text = createClauses(topic, fullText)
 
+    const renderVotarButton = () => {
+      if (isProyecto && voterInformation.isFromEscuela && config.votacionVisible && config.votacionAbierta) {
+        return (<VotarButton topic={topic} onVote={onVote} voterInformation={voterInformation} key={`votar-${voterInformation.dni}-${topic.id}`} />)
+      } else {
+        return null
+      }
+    }
+
     return (
       <div id="ideas-topic-card" className={`ext-topic-card ${fullText ? 'focus' : ''}`} style={{ borderColor: (topic.tag && topic.tag.color) || '' }}>        {/* <div className='topic-card-info'> */}
           {/* <div className='topic-card-attrs'>
@@ -237,9 +245,10 @@ export class TopicCard extends Component {
                 </button>
               </div>
             */}
-            { isProyecto && voterInformation.isFromEscuela && config.votacionVisible && config.votacionAbierta &&
+            { renderVotarButton() }
+            {/* { isProyecto && voterInformation.isFromEscuela && config.votacionVisible && config.votacionAbierta &&
               <VotarButton topic={topic} onVote={onVote} voterInformation={voterInformation} />
-            }       
+            }        */}
             {/* <div
               className='proyectista-wrapper'>
               {

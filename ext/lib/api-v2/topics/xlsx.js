@@ -5,6 +5,7 @@ const moment = require('moment')
 // const middlewaresNew = require('lib/api-v2/middlewares')
 const middlewares = require('lib/api-v2/middlewares')
 var api = require('lib/db-api')
+// moment
 
 const log = debug('democracyos:api:topic:xslx')
 const app = module.exports = express.Router()
@@ -404,7 +405,8 @@ app.get('/export/topics/export-resultados-VOTOS',
         'Tipo Voto': null,
         'Claustro': null,
         'Escuela': `${escapeTxt(votante.topic ? req.escuelasName[votante.topic.escuela] : '')}`,
-        'Proyecto': `${escapeTxt(votante.topic ? votante.topic.mediaTitle : '')}`
+        'Proyecto': `${escapeTxt(votante.topic ? votante.topic.mediaTitle : '')}`,
+        'Hora': `${escapeTxt(moment(votante.createdAt).format('YYYY/MM/DD HH:mm:ss'))}`
       }
       if(votante.author.dni == votante.dni) {
         theVoto['Tipo Voto'] = 'Voto online'
