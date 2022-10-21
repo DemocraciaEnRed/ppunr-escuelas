@@ -487,7 +487,7 @@ class HomePropuestas extends Component {
         <BannerListadoTopics
           btnText={config.propuestasAbiertas && voterInformation.isFromEscuela ? 'Subí tu idea' : undefined}
           btnLink={config.propuestasAbiertas && voterInformation.isFromEscuela ? `/formulario-idea?escuela=${escuela && escuela._id}` : undefined}
-          title={config.propuestasVisibles ? 'Conocé las ideas del PPUNR' : 'Bienvenido/a a la votación del PPUNR'}
+          title={config.propuestasVisibles ? 'Conocé las ideas del PPUNR' : 'PPUNR 2022'}
           handlerVotacion={config.votacionAbierta && forum && forum.privileges && forum.privileges.canEdit && this.handlerVotacion}
           user={user}
           voterInformation={voterInformation}

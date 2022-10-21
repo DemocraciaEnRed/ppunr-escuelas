@@ -67,7 +67,7 @@ class MobileMenu extends Component {
                     </a>
                   </div>
                 ))}
-                <div className='header-item'>
+                {/* <div className='header-item'>
                   <Link
                     to='s/foro-presencial'
                     className={`header-link ${!~window.location.pathname.includes('foro-presencial') ? 'active' : ''}`}
@@ -76,7 +76,7 @@ class MobileMenu extends Component {
                     tabIndex="4">
                     Votación presencial
                   </Link>
-                </div>
+                </div> */}
                 {/* <div className='header-item mobile-link'>
                   <ProyectosLink />
                 </div>

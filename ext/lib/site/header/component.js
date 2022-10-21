@@ -174,7 +174,7 @@ class Header extends Component {
                 </a>
               </div>
             ))}
-            <div className={`header-item ${window.location.pathname.includes('/foro-presencial') ? 'active' : ''}`}>
+            {/* <div className={`header-item ${window.location.pathname.includes('/foro-presencial') ? 'active' : ''}`}>
               <Link
                 to='/s/foro-presencial'
                 className='header-link'
@@ -182,7 +182,7 @@ class Header extends Component {
                 >
                   Votación presencial
               </Link>
-            </div>
+            </div> */}
             { showAdmin &&
               <div className={`header-item ${window.location.pathname.includes('/admin') ? 'active' : ''}`}>
                 <Link
