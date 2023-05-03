@@ -44,7 +44,7 @@ export default class Page extends Component {
                 <Accordion>
                   <div data-trigger="+ ¿Quiénes pueden participar del PP Escuelas?">
                     <p className='p-padding'>
-                    Pueden participar docentes, nodocentes, estudiantes y graduados/as de cada Escuela: Agrotécnica, Superior y Politécnico.
+                    Pueden participar docentes, nodocentes, estudiantes y graduados/as de cada Escuela: Agrotécnica, Sociales, Superior y Politécnico.
                     </p>
                   </div>
                   {/* <div data-trigger="+ ¿En qué se basa la etapa de Foros del PP Escuelas?">
