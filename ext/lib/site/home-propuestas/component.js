@@ -497,7 +497,7 @@ class HomePropuestas extends Component {
 
         <div className='container'>
           <div className="row">
-            {config.propuestasVisibles && 
+            {/* {config.propuestasVisibles && 
               (config.propuestasAbiertas 
                 ? (
                     <div className='notice'>
@@ -522,7 +522,10 @@ class HomePropuestas extends Component {
                   </div>
                 )
               )
-            }
+            } */}
+              {forum && <div className='notice'>
+                <h1>{forum.config.noticeTexto }</h1>
+              </div>}
           </div>
         </div>
 

@@ -316,7 +316,7 @@ class FormularioPropuesta extends Component {
     const { forum, escuelas, claustros, escuelaEquivocada, availableTags, availableEjes, eje } = this.state
 
     if (!forum) return null
-    if(config.propuestasAbiertas || (this.state.forum.privileges && this.state.forum.privileges.canChangeTopics)) {
+    if(forum.config.propuestasAbiertas || (this.state.forum.privileges && this.state.forum.privileges.canChangeTopics)) {
     return (
       <div className='form-propuesta'>
         <div className='propuesta-header'>
