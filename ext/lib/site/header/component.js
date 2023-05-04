@@ -18,13 +18,19 @@ class Header extends Component {
       mobileMenu: false,
       userMenu: false,
       userPrivileges: null,
-      escuelas: []
+      escuelas: [],
+      configForum:null
     }
 
     props.user.onChange(this.onUserStateChange)
   }
 
   componentWillMount () {
+    forumStore.findOneByName(config.forumProyectos).then(
+      forum => this.setState({ 
+        configForum:forum.config
+       })
+    )
     bus.on('user-form:load', this.onLoadUserForm)
     escuelaStore.findAll().then(escuelas => this.setState({escuelas}))
   }
@@ -86,6 +92,7 @@ class Header extends Component {
       color: config.headerFontColor,
       backgroundColor: config.headerBackgroundColor
     }
+    const { configForum} = this.state
     const showAdmin = this.state.userPrivileges && this.state.userPrivileges.canChangeTopics
     // MEDIA QUERY - Si es menor al breakpoint muestra un menú, si es mayor, otro
     if (window.matchMedia('(max-width: 975px)').matches) {
@@ -124,7 +131,8 @@ class Header extends Component {
               form={this.state.userForm}
               menuOn={this.state.mobileMenu}
               toggleOnClick={this.toggleMobileMenu}
-              escuelas={this.state.escuelas} />
+              escuelas={this.state.escuelas}
+              configForum={configForum} />
 
           </ul>
         </nav>
@@ -169,20 +177,20 @@ class Header extends Component {
                   tabIndex={index + 3}
                   >
                     {/* {escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre} Decide  */}
-                  {escuela.nombre} ({escuela.abreviacion}) decide
+                  {escuela.nombre}<br/>  ({escuela.abreviacion}) decide
                   {/* Foro {escuela.nombre} ({escuela.abreviacion}) */}
                 </a>
               </div>
             ))}
-            {/* <div className={`header-item ${window.location.pathname.includes('/foro-presencial') ? 'active' : ''}`}>
+            {configForum && configForum.mostrarSeccionEventos && <div className={`header-item ${window.location.pathname.includes('/foro-presencial') ? 'active' : ''}`}>
               <Link
                 to='/s/foro-presencial'
                 className='header-link'
                 tabIndex="6"
                 >
-                  Votación presencial
+                  Foro presencial
               </Link>
-            </div> */}
+            </div>}
             { showAdmin &&
               <div className={`header-item ${window.location.pathname.includes('/admin') ? 'active' : ''}`}>
                 <Link
