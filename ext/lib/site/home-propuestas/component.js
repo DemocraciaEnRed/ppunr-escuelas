@@ -31,7 +31,7 @@ const defaultValues = {
   tag: [],
   // 'barrio' o 'newest' o 'popular'
   sort: 'newest',
-  tipoIdea: config.votacionVisible ? ['proyecto'] : (config.propuestasVisibles ? ['pendiente'] : [])
+  tipoIdea: []
 }
 
 const filters = {
@@ -99,10 +99,12 @@ class HomePropuestas extends Component {
       const tagsMap = tags.map(tag => { return {value: tag.id, name: tag.name}; });
       const tag = this.props.location.query.tags ? [tagsMap.find(j => j.name == this.props.location.query.tags).value] : [];
       const tiposIdea = forum.topicsAttrs.find(a => a.name=='state').options.map(state => { return {value: state.name, name: state.title}; })
+      const tipoIdea = forum.config.ideacion ? ['pendiente'] : forum.config.preVotacion || forum.config.votacion ? ['proyecto'] : []
       this.setState({
         claustros: claustros.map(claustro => { return {value: claustro._id, name: claustro.nombre}; }),
         tags: tagsMap,
         tiposIdea,
+        tipoIdea,
         escuela,
         forum,
         searchableProyectos: proyectos.map(p => ({label: `#${p.attrs && p.attrs.numero} ${p.mediaTitle}`, value: p._id}))
@@ -296,14 +298,15 @@ class HomePropuestas extends Component {
   }
 
   renderSortFilter() {
+    const {forum} = this.state
     return (
       <div>
         {
-          config.propuestasVisibles &&
+          forum && forum.config.ideacion &&
           <h4 className="topics-title">Lista de ideas</h4>
         }
         {
-          config.votacionVisible &&
+          forum && (forum.config.votacion || forum.config.preVotacion) &&
           <h4 className="topics-title">Lista de proyectos</h4>
         }
         <div className='topics-filters'>
@@ -406,11 +409,13 @@ class HomePropuestas extends Component {
   getVoterInformation() {
     const { escuela, forum, dniP, isDNIInPadron, votesP, escuelasP } = this.state
     const { user } = this.props
+    let votacion = false
     const userLoggedIn = user.state && user.state.fulfilled
     let dni = ''
     let votes = []
     let isFromEscuela = false
     if (forum) {
+      votacion = forum.config.votacion
       if (userLoggedIn && forum.privileges && forum.privileges.canEdit) {
         if (isDNIInPadron) {
           dni = dniP
@@ -432,7 +437,7 @@ class HomePropuestas extends Component {
     
     
 
-    return {userLoggedIn, dni, votes, isFromEscuela }
+    return {userLoggedIn, dni, votes, isFromEscuela,votacion }
   }
 
 
@@ -446,7 +451,7 @@ class HomePropuestas extends Component {
       forum, topics, searchableProyectos, 
       selectedProyecto, dialogVotacion, 
       claustros, dialogMessage, 
-      dniP, claustroP, escuela
+      dniP, claustroP, escuela,tipoIdea
     } = this.state
     const { user } = this.props
 
@@ -484,46 +489,20 @@ class HomePropuestas extends Component {
         }
 
 
-        <BannerListadoTopics
-          btnText={config.propuestasAbiertas && voterInformation.isFromEscuela ? 'Subí tu idea' : undefined}
-          btnLink={config.propuestasAbiertas && voterInformation.isFromEscuela ? `/formulario-idea?escuela=${escuela && escuela._id}` : undefined}
-          title={config.propuestasVisibles ? 'Conocé las ideas del PPUNR' : 'PPUNR 2022'}
-          handlerVotacion={config.votacionAbierta && forum && forum.privileges && forum.privileges.canEdit && this.handlerVotacion}
+        {forum && <BannerListadoTopics
+          btnText={forum. config.propuestasAbiertas && voterInformation.isFromEscuela ? 'Subí tu idea' : undefined}
+          btnLink={forum.config.propuestasAbiertas && voterInformation.isFromEscuela ? `/formulario-idea?escuela=${escuela && escuela._id}` : undefined}
+          title={forum.config.ideacion ? 'Conocé las ideas del PPUNR' : 'PPUNR 2022'}
+          handlerVotacion={forum && forum.config.votacion && forum.privileges && forum.privileges.canEdit && this.handlerVotacion}
           user={user}
           voterInformation={voterInformation}
           subtitle={escuela && escuela.tituloForo}
           esculeaAbrev={escuela && escuela.abreviacion}
-          />
+          />}
 
         <div className='container'>
           <div className="row">
-            {/* {config.propuestasVisibles && 
-              (config.propuestasAbiertas 
-                ? (
-                    <div className='notice'>
-                    <h1>{config.propuestasTextoAbiertas}</h1>
-                    </div>
-                ) : (
-                  <div className='notice'>
-                      <h1>{config.propuestasTextoCerradas}</h1>
-                    </div>
-                )
-              )
-            }
-            {config.votacionVisible &&
-              (config.votacionAbierta
-                ? (
-                  <div className='notice'>
-                    <h1>{config.votacionTextoAbierta}</h1>
-                  </div>
-                ) : (
-                  <div className='notice'>
-                    <h1>{config.votacionTextoCerrada}</h1>
-                  </div>
-                )
-              )
-            } */}
-              {forum && <div className='notice'>
+                 {forum && <div className='notice'>
                 <h1>{forum.config.noticeTexto }</h1>
               </div>}
           </div>
@@ -550,7 +529,7 @@ class HomePropuestas extends Component {
 
           <div className='row'>
             <div className='col-md-10 offset-md-1'>
-              {config.votacionVisible &&
+              {forum && (forum.config.preVotacion || forum.config.votacion) &&
                 <div className='search-proyecto-wrapper'>
                   {/* para esto usamos react-select version 2.4.4 */}
                   <Select
