@@ -104,7 +104,6 @@ class FormularioPropuesta extends Component {
           adminCommentReference: topic.attrs['admin-comment-reference'],
           topic: topic
         })
-      console.log(isEdit, newState)
       this.setState(newState, () => {
         // updateamos campos de usuario
         // (recién dps del setState tendremos escuelas y claustros cargados)
