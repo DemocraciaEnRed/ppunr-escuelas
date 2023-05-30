@@ -3,6 +3,7 @@
     .password-settings
       .heading
         h2= 'Configuraciones'
+        //button.btn.btn-primary#borrar-proyectistas='borrar proyectistas'
       form.form(action=form.action, method='post', role='form', autovalidate, autosubmit)
         ul.form-messages
         .container-fluid  
@@ -11,6 +12,7 @@
               h5= ''
               .form-group
                 label.switch= 'Mostrar sección eventos'
+                  span.help-text= " Durante la etapa de subida de ideas se denomina “Foro presencial” y durante la etapa de votación “Votación presencial”"
                   input.form(
                     type='checkbox',
                     data-name='mostrarSeccionEventos',

@@ -120,6 +120,11 @@
                 span.placa.ips.text
                   span.glyphicon.glyphicon-education
                   span=' ' + topic.escuela.nombre
+              -if(topic.escuela.abreviacion == 'ESyH')
+                //- span.placa.ips.text=topic.escuela.nombre
+                span.placa.esyh.text
+                  span.glyphicon.glyphicon-education
+                  span=' ' + topic.escuela.nombre
               -if(topic.escuela.abreviacion == 'ESUPCOM')
                 span.placa.esupcom.text
                   span.glyphicon.glyphicon-education

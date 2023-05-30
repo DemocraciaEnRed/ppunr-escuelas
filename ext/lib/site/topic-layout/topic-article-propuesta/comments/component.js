@@ -14,7 +14,8 @@ export class Comments extends Component {
     this.state = {
       comments: props.commentsFetch.value,
       pagination: props.commentsFetch.meta.pagination,
-      isFromEscuelaReactive: props.isFromEscuela
+      isFromEscuelaReactive: props.isFromEscuela,
+      commentsEnabled: props.forum.config.ideacion
     }
   }
 
@@ -29,8 +30,9 @@ export class Comments extends Component {
 
   render () {
     const { commentsFetch, topic, user, isFromEscuela } = this.props
-
-    const enabled = config.habilitarComentarios
+    const { commentsEnabled } = this.state
+    
+    const enabled = commentsEnabled
 
     return (
       <div className='topic-comments'>
@@ -47,10 +49,10 @@ export class Comments extends Component {
                 onSubmit={this.props.handleCreate}
                 commentsCreating={this.props.commentsCreating} />
             :
-              <p className='alert alert-warning'>¡Gracias por haber comentando! Finalizó el período para hacer comentarios.</p>
+              <p className='alert alert-warning'>¡Gracias por haber comentado! Finalizó el período para hacer comentarios.</p>
           ) : ( enabled ? 
               <p className='alert alert-warning'>No podés hacer comentarios en ideas de esta escuela</p>
-              : <p className='alert alert-warning text-center'>¡Gracias por haber comentando! Finalizó el período para hacer comentarios.</p>
+              : <p className='alert alert-warning text-center'>¡Gracias por haber comentado! Finalizó el período para hacer comentarios.</p>
             )
           }
           {!commentsFetch.rejected && (
