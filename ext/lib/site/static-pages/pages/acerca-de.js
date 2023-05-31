@@ -5,18 +5,72 @@ import Jump from 'ext/lib/site/jump-button/component'
 import Anchor from 'ext/lib/site/anchor'
 // https://github.com/glennflanagan/react-responsive-accordion
 import Accordion from 'react-responsive-accordion';
+import forumStore from 'lib/stores/forum-store/forum-store'
+
+const Faqs=[
+  {
+    question:'+ ¿Quiénes pueden participar del PP Escuelas?',
+    answer:'Pueden participar docentes, nodocentes, estudiantes y graduados/as de cada Escuela: Agrotécnica, Sociales, Superior y Politécnico.'},
+  {
+    question:'+ Si no participé de una etapa anterior, ¿puedo sumarme?',
+    answer:'Podés sumarte en cualquier etapa del proceso aunque no hayas participado de las anteriores. Es decir, podés no haber propuesto o comentado ideas pero interesarte por sumar tu aporte como proyectista o elegir en la votación tus proyectos favoritos para ser ejecutados. '
+  },
+  {
+    question:'+ ¿Qué condiciones deben respetar los proyectos?',
+    answer:`<ul>
+              <li>Ser elaborados por integrantes de más de un claustro. </li>
+              <li>No exceder el límite presupuestario (1 millón y medio de pesos).</li>
+              <li>El monto de cada proyecto no puede superar el 70% de la partida asignada</li>
+              <li>No exceder el ámbito de la Universidad.</li>
+              <li>No afectar partidas presupuestarias de años posteriores.</li>
+              <li>Ser factibles técnicamente para poder ser ejecutados en caso de ser elegido.</li>
+            </ul>`
+  },
+  {
+    question:'+ ¿Cuál es el monto asignado para cada Escuela en el PPUNR 2022?',
+    answer:'Cada Escuela tendrá disponible un millón y medio de pesos para discutir en el marco de su comunidad.'
+  },
+  {
+    question:'+ ¿Cómo elegiremos los proyectos a ejecutarse en 2023?',
+    answer:'Se realizarán jornadas de votación (del 12 al 21 de octubre de 2022), previa difusión de los proyectos elegibles, para que toda la comunidad de la Escuela pueda decidir cuáles serán ejecutados hasta alcanzar el total de la partida presupuestaria disponible.'
+  }
+]
+
+
+
+const FaqProyectistas =
+  {
+    question:"+ ¿Qué implica ser proyectista?",
+    anchorId:'proyectista',
+    answer:'Luego de los Foros, la segunda etapa del PP es la conformación de los Consejos Escolares. Los mismos estarán integrados por todas las personas que se hayan propuesto para transformar las ideas en proyectos. Tendremos algunos encuentros, inclusive con técnicos de la Universidad que contribuirán a darle factibilidad a los proyectos, que serán elegidos por la comunidad y serán ejecutados en 2023.'
+  }
 
 export default class Page extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      openSection: this.props.location.query.q === 'proyectista' ? 12 : 0
+      configForum:null,
+      faqs:Faqs,
     }
   }
 
   componentDidMount () {
-    this.goTop(this.props.location.query.q || 'container')
+    
+    forumStore.findOneByName(config.forumProyectos).then(
+      forum => {this.setState({ 
+        configForum:forum.config
+        
+      })
+      if(forum.config.mostrarFormulariosProyectistas) {
+        let newFaqs =Faqs.slice(0, 2).concat(FaqProyectistas, Faqs.slice(2));
+        this.setState({faqs:newFaqs})
+      }
+
+      this.goTop(this.props.location.query.q || 'container')
+    }
+    )
+
   }
 
   goTop (anchorId) {
@@ -24,8 +78,9 @@ export default class Page extends Component {
   }
 
   render () {
-    let { openSection } = this.state
-    return (
+    let { configForum,faqs } = this.state
+
+     return (
       <div>
         <section className="banner-static-2022">
           <h1>Acerca de</h1>
@@ -33,7 +88,7 @@ export default class Page extends Component {
         <div className="post-banner-static-2022 container">
           <span>Inscribirte para a sumarte como proyectista del Consejo Escolar este 2022.</span>
         </div>
-        <Anchor id='container' startPosition={openSection}>
+        <Anchor id='container' >
           <div className="container">
           <div className="">
               <div className="">
@@ -41,13 +96,24 @@ export default class Page extends Component {
                 <br />
                 <br />
 
-                <Accordion>
-                  <div data-trigger="+ ¿Quiénes pueden participar del PP Escuelas?">
+                {configForum && <Accordion startPosition={configForum && configForum.mostrarFormulariosProyectistas && this.props.location.query.q === 'proyectista' ? 2 :0}>
+                  {faqs.map((faq,idx)=>(
+                  <div key={idx} data-trigger={faq.question}>
+                    {faq.anchorId ? 
+                      <Anchor id={faq.anchorId}>
+                        <p className='p-padding' dangerouslySetInnerHTML={{__html:faq.answer}}>
+                        </p>
+                      
+                      </Anchor>:
+                          <p className='p-padding' dangerouslySetInnerHTML={{__html:faq.answer}}>
+                          </p>}
+                  </div>))}
+                  {/* <div data-trigger="+ ¿Quiénes pueden participar del PP Escuelas?">
                     <p className='p-padding'>
                     Pueden participar docentes, nodocentes, estudiantes y graduados/as de cada Escuela: Agrotécnica, Sociales, Superior y Politécnico.
                     </p>
                   </div>
-                  {/* <div data-trigger="+ ¿En qué se basa la etapa de Foros del PP Escuelas?">
+                  <div data-trigger="+ ¿En qué se basa la etapa de Foros del PP Escuelas?">
                     <p className='p-padding'>
                     Cada Escuela tiene su propio Foro con el objetivo de que los/as integrantes de la comunidad propongan ideas que aporten en la construcción de la Escuela. Estarán abiertos desde el 10 de mayo al 24 de mayo. También podrás ahora sumarte para ser proyectista.
                     </p>
@@ -123,19 +189,19 @@ export default class Page extends Component {
                     <p className='p-padding'>
                     Otros/as participantes pueden comentar tu idea o apoyarla. Te invitamos a entrar en diálogo con otros/as participantes. Luego haremos una sistematización de ideas por temas y serán desarrolladas por quienes se inscriban para ser proyectistas de cada Consejo Escolar. 
                     </p>
-                  </div> */}
+                  </div>
                   <div data-trigger="+ Si no participé de una etapa anterior, ¿puedo sumarme?">
                     <p className='p-padding'>
                     Podés sumarte en cualquier etapa del proceso aunque no hayas participado de las anteriores. Es decir, podés no haber propuesto o comentado ideas pero interesarte por sumar tu aporte como proyectista o elegir en la votación tus proyectos favoritos para ser ejecutados. 
                     </p>
                   </div>
-                  {/* <div data-trigger="+ ¿Qué implica ser proyectista?">
+                      <div data-trigger="+ ¿Qué implica ser proyectista?">
                     <Anchor id='proyectista'>
                       <p className='p-padding'>
                       Luego de los Foros, la segunda etapa del PP es la conformación de los Consejos Escolares. Los mismos estarán integrados por todas las personas que se hayan propuesto para transformar las ideas en proyectos. Tendremos algunos encuentros, inclusive con técnicos de la Universidad que contribuirán a darle factibilidad a los proyectos, que serán elegidos por la comunidad y serán ejecutados en 2023.
                       </p>
                     </Anchor>
-                  </div> */}
+                  </div> 
                   <div data-trigger="+ ¿Qué condiciones deben respetar los proyectos?">
                     <p className='p-padding'>
                       <ul>
@@ -157,8 +223,8 @@ export default class Page extends Component {
                     <p className='p-padding'>
                     Se realizarán jornadas de votación (del 12 al 21 de octubre de 2022), previa difusión de los proyectos elegibles, para que toda la comunidad de la Escuela pueda decidir cuáles serán ejecutados hasta alcanzar el total de la partida presupuestaria disponible.
                     </p>
-                  </div>
-                </Accordion>
+                  </div> */}
+                </Accordion>}
 
               </div>
             </div>
@@ -167,7 +233,7 @@ export default class Page extends Component {
             <br />
           </div>
         </Anchor>
-        <Jump goTop={this.goTop} />
+        <Jump goTop={()=>this.goTop('container')} />
         <Footer />
       </div>
     )

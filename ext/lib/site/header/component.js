@@ -8,6 +8,8 @@ import MobileMenu from 'ext/lib/site/header/mobile-menu/component'
 import AnonUser from 'ext/lib/site/header/anon-user/component'
 import forumStore from 'lib/stores/forum-store/forum-store'
 import escuelaStore from 'lib/stores/escuela-store'
+import textStore from 'lib/stores/text-store'
+
 
 class Header extends Component {
   constructor (props) {
@@ -19,18 +21,31 @@ class Header extends Component {
       userMenu: false,
       userPrivileges: null,
       escuelas: [],
-      configForum:null
+      configForum:null,
+      texts:null
     }
 
     props.user.onChange(this.onUserStateChange)
   }
 
   componentWillMount () {
-    forumStore.findOneByName(config.forumProyectos).then(
-      forum => this.setState({ 
+    Promise.all([
+      textStore.findAllDict(),
+      forumStore.findOneByName('proyectos')
+    ])
+    .then((results) => {
+      const [textsDict, forum] = results
+
+      this.setState({
+        texts: textsDict,
         configForum:forum.config
-       })
-    )
+      })
+    }).catch((err) => {
+      this.state = {
+        texts: {},
+        forum:null
+      }
+    })
     bus.on('user-form:load', this.onLoadUserForm)
     escuelaStore.findAll().then(escuelas => this.setState({escuelas}))
   }
@@ -92,7 +107,7 @@ class Header extends Component {
       color: config.headerFontColor,
       backgroundColor: config.headerBackgroundColor
     }
-    const { configForum} = this.state
+    const { configForum, texts} = this.state
     const showAdmin = this.state.userPrivileges && this.state.userPrivileges.canChangeTopics
     // MEDIA QUERY - Si es menor al breakpoint muestra un menú, si es mayor, otro
     if (window.matchMedia('(max-width: 975px)').matches) {
@@ -188,7 +203,7 @@ class Header extends Component {
                 className='header-link'
                 tabIndex="6"
                 >
-                  Foro presencial
+                  {texts['evento-pestaña']}
               </Link>
             </div>}
             { showAdmin &&

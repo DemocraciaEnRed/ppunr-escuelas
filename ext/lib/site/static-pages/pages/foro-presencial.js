@@ -4,6 +4,8 @@ import Footer from   'ext/lib/site/footer/component'
 import Jump from 'ext/lib/site/jump-button/component'
 import Anchor from 'ext/lib/site/anchor'
 import userConnector from 'lib/site/connectors/user'
+import textStore from 'lib/stores/text-store'
+
 
 class Page extends Component {
   constructor (props) {
@@ -14,13 +16,23 @@ class Page extends Component {
       futureEvents: [],
       pastEvents: [],
       buttonPressed: [],
-      isLoading: true
+      isLoading: true,
+      texts:null
     }
   }
 
   componentDidMount () {
     this.goTop()
     this.getAgenda()
+    textStore.findAllDict().then((texts)=>{
+      this.setState({
+        texts
+      })
+    }).catch((err) => {
+      this.state = {
+        texts: null
+      }
+    })
   }
 
   getAgenda = () => {
@@ -106,18 +118,21 @@ class Page extends Component {
   }
 
   render () {
-    let { agenda, futureEvents, pastEvents, buttonPressed, isLoading } = this.state
+    let { agenda, futureEvents, pastEvents, buttonPressed, isLoading,texts } = this.state
     return (
       <div id="foro-presencial">
+        {texts && <div>
         <section className="the-banner">
-          Votación presencial
+          {texts['evento-titulo']}
         </section>
         <div className="the-subbanner-container">
           <div className="the-subbanner">
             {/* Si participaste de manera presencial podes encontrar tu idea en el foro virtual */}
-            En estos puntos UNR Decide podrás votar de manera presencial. Te esperamos!
+            {texts['evento-bajada']}
           </div>
         </div>
+        </div>
+        }
         <div className="the-content">
           <div className="container">
             <h3 className="text-center">Próximos eventos</h3>
