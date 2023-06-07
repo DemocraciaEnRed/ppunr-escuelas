@@ -63,7 +63,7 @@ class MobileMenu extends Component {
                       className={`header-link header-link-${escuela.abreviacion}`}
                       onClick={this.props.toggleOnClick}>
                         {/* {escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre} elige */}
-                      {escuela.nombre} ({escuela.abreviacion}) Decide
+                        {escuela.nombrePestaña}
                       {/* Foro {escuela.nombre} */}
                     </a>
                   </div>
@@ -75,7 +75,7 @@ class MobileMenu extends Component {
                     activeStyle={{ color: '#8C1E81' }}
                     onClick={this.props.toggleOnClick}
                     tabIndex="4">
-                    Foro presencial
+                    {this.props.texts['evento-pestaña']}
                   </Link>
                 </div>}
                 {/* <div className='header-item mobile-link'>

@@ -454,7 +454,7 @@ class HomePropuestas extends Component {
       dniP, claustroP, escuela,tipoIdea
     } = this.state
     const { user } = this.props
-
+    
 
     let filteredTopics;
 
@@ -462,7 +462,7 @@ class HomePropuestas extends Component {
       filteredTopics = topics.filter(t => t.id == selectedProyecto.value)
 
     const voterInformation = this.getVoterInformation()
-
+    
     return (
 
       <div className={`ext-home-ideas ${user.state.fulfilled ? 'user-logged' : ''}`}>
@@ -492,7 +492,7 @@ class HomePropuestas extends Component {
         {forum && <BannerListadoTopics
           btnText={forum. config.propuestasAbiertas && voterInformation.isFromEscuela ? 'Subí tu idea' : undefined}
           btnLink={forum.config.propuestasAbiertas && voterInformation.isFromEscuela ? `/formulario-idea?escuela=${escuela && escuela._id}` : undefined}
-          title={forum.config.ideacion ? 'Conocé las ideas del PPUNR' : 'PPUNR 2022'}
+          title={escuela.titulo}
           handlerVotacion={forum && forum.config.votacion && forum.privileges && forum.privileges.canEdit && this.handlerVotacion}
           user={user}
           voterInformation={voterInformation}

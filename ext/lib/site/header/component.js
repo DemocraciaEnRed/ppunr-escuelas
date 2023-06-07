@@ -147,7 +147,8 @@ class Header extends Component {
               menuOn={this.state.mobileMenu}
               toggleOnClick={this.toggleMobileMenu}
               escuelas={this.state.escuelas}
-              configForum={configForum} />
+              configForum={configForum}
+              texts={texts} />
 
           </ul>
         </nav>
@@ -192,7 +193,7 @@ class Header extends Component {
                   tabIndex={index + 3}
                   >
                     {/* {escuela.abreviacion == 'ESUPCOM' ? 'Superior' : escuela.nombre} Decide  */}
-                  {escuela.nombre}<br/>  ({escuela.abreviacion}) decide
+                  {escuela.nombrePestaña}
                   {/* Foro {escuela.nombre} ({escuela.abreviacion}) */}
                 </a>
               </div>
