@@ -573,7 +573,7 @@ class FormularioPropuesta extends Component {
         </div>
         {/* ALERT PARA FIN DE ETAPA */}
         {/* <alert className='alert alert-info cronograma'>
-          <Link style={{ display: 'inline' }} to='/s/acerca-de?scroll=cronograma'>
+          <Link style={{ display: 'inline' }} to='/acerca-de'>
             La etapa de envío de propuestas ya ha sido cerrada. ¡Muchas gracias por participar!
           </Link>
         </alert> */}
