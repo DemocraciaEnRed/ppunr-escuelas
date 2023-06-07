@@ -51,6 +51,11 @@ ul.admin-menu.nav.nav-pills.nav-stacked(class=forum.privileges.canChangeTopics ?
         ='stats'
   - if (user.staff)
     li
+      a(href=urlBuilder.for('admin.escuelas', {forum: forum.name}) data-section='escuelas')
+        span.glyphicon.glyphicon-briefcase
+        ='Escuelas'
+  - if (user.staff)
+    li
       a(href=urlBuilder.for('admin.settings-stage', {forum: forum.name}) data-section='settings-stage')
         span.glyphicon.glyphicon-cog
         ='configuración'
