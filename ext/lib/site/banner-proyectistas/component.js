@@ -122,8 +122,7 @@ class BannerProyectistas extends Component {
         </div>
       )}
       <div>
-        <Link to={'/s/acerca-de?q=proyectista'} className="learn-more">Conocé más sobre las tareas de un proyectista</Link>
-      </div>
+      <p className="help-text"><i className="icon-info icon-large"></i> <u>Ser proyectista</u> implica transformar las ideas en proyectos. <br/>Podes informarte más acerca de que es ser proyectista en la sección de <Link href="/acerca-de">Acerca De</Link></p>      </div>
     </div>
 
    )
