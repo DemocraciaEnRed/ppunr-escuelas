@@ -7,13 +7,13 @@ const Escuela = models.Escuela
 const escuelasData = [
   {
     nombre: 'Politécnico',
-    nombrePestaña:'AGROTÉCNICA (EAC) DECIDE',
+    nombrePestaña:'POLITÉCNICO (IPS) DECIDE',
     titulo:'PPUNR 2023'
     
   },
   {
     nombre: 'Agrotécnica',
-    nombrePestaña:'POLITÉCNICO (IPS) DECIDE',
+    nombrePestaña:'AGROTÉCNICA (EAC) DECIDE',
     titulo:'PPUNR 2023'
   },
   {

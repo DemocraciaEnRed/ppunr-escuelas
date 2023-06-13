@@ -490,7 +490,7 @@ class HomePropuestas extends Component {
 
 
         {forum && <BannerListadoTopics
-          btnText={forum. config.propuestasAbiertas && voterInformation.isFromEscuela ? 'Subí tu idea' : undefined}
+          btnText={forum.config.propuestasAbiertas && voterInformation.isFromEscuela ? 'Subí tu idea' : undefined}
           btnLink={forum.config.propuestasAbiertas && voterInformation.isFromEscuela ? `/formulario-idea?escuela=${escuela && escuela._id}` : undefined}
           title={escuela.titulo}
           handlerVotacion={forum && forum.config.votacion && forum.privileges && forum.privileges.canEdit && this.handlerVotacion}
