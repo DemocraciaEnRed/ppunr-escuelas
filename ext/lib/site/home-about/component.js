@@ -7,6 +7,7 @@ import Footer from 'ext/lib/site/footer/component'
 import Jump from 'ext/lib/site/jump-button/component'
 import Anchor from 'ext/lib/site/anchor'
 import forumStore from 'lib/stores/forum-store/forum-store'
+import textStore from 'lib/stores/text-store'
 
 export default class HomeAbout extends Component {
     constructor() {
@@ -14,14 +15,18 @@ export default class HomeAbout extends Component {
 
         this.state = {
             forum: null,
-            faqs: null
+            faqs: null,
+            texts: null
         }
     }
 
     componentDidMount() {
-        aboutStore
-            .findAll()
-            .then((faqs) => this.setState({ faqs }))
+        Promise.all([
+            aboutStore.findAll(),
+            textStore.findAllDict()
+        ]).then(([faqs, texts]) => {
+            this.setState({ faqs, texts })
+        })
             .catch((err) => {
                 throw err
             })
@@ -43,17 +48,17 @@ export default class HomeAbout extends Component {
     }
 
     render() {
-        const { faqs } = this.state
+        const { faqs, texts } = this.state
 
         return (
             <div>
                 <section className="banner-static-2022">
                     <h1>Acerca de</h1>
                 </section>
-                <div className="post-banner-static-2022 container">
-                    <span>Inscribirte para a sumarte como proyectista del Consejo Escolar este 2022.</span>
-                </div>
-                <p className='h4 text-center'>Podés leer el reglamento completo haciendo click <a href="https://presupuestoparticipativo.unr.edu.ar/reglamento/" rel="noopener noreferer" target="_blank">aquí</a></p>
+                {texts && <div className="post-banner-static-2022 container">
+                    <span> {texts['about-bajada']}</span>
+                </div>}
+                {texts && <div className=' text-center' dangerouslySetInnerHTML={{ __html: texts['about-reglamento'] }} />}
                 <br />
                 <br />
                 <div className='ext-acerca-de container'>

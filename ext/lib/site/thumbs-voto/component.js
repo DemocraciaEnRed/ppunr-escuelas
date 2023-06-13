@@ -99,7 +99,7 @@ export default userConnector(function ThumbsVoto(props) {
         {/* <div
           className='row'>
           <div className='cont-boton-azul'>
-            <Link to='/s/acerca-de' className="boton-azul">
+            <Link to='/acerca-de' className="boton-azul">
               ¿Como participo?
             </Link>
           </div>
