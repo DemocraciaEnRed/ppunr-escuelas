@@ -185,14 +185,14 @@ export class TopicCard extends Component {
           ) } */}
 
           <div className='buttons-wrapper'>
-            { isLoggedIn && voterInformation.isFromEscuela && !isProyecto && config.habilitarApoyo && 
+            { forum && isLoggedIn && voterInformation.isFromEscuela && !isProyecto && forum.config.ideacion && 
               <Cause
                 topic={topic}
                 canVoteAndComment={voterInformation.isFromEscuela}
                 isFromEscuela={voterInformation.isFromEscuela} />
             }
             {
-              isLoggedIn && voterInformation.isFromEscuela && config.habilitarComentarios && 
+             forum && isLoggedIn && voterInformation.isFromEscuela && forum.config.ideacion && 
               <Link className='btn btn-go' to={`/propuestas/topic/${topic.id}`}>Comentar <i className="icon-comment-alt"></i></Link>
             }
             {
@@ -241,7 +241,7 @@ export class TopicCard extends Component {
                   {subscribesCountDiv}
                 </div>
               </div>
-            */}
+            *z/}
             {/*voterInformation.isFromEscuela && isSistematizada &&
               <div
                 className='proyectista-wrapper'>

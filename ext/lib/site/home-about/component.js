@@ -53,7 +53,7 @@ export default class HomeAbout extends Component {
         return (
             <div>
                 <section className="banner-static-2022">
-                    <h1>Acerca de</h1>
+                    <h1>INFORMACIÓN</h1>
                 </section>
                 {texts && <div className="post-banner-static-2022 container">
                     <span> {texts['about-bajada']}</span>

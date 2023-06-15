@@ -178,7 +178,7 @@ class Header extends Component {
                 tabIndex= "2"
                 aria-label='link acerca de'
                 >
-                  Acerca de
+                  Información
               </Link>
             </div>
             {this.state.escuelas.length > 0 && this.state.escuelas.map((escuela,index) => (

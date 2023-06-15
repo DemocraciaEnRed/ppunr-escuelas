@@ -164,7 +164,7 @@ class TopicArticle extends Component {
                 <Link href={editUrl} className='btn btn-default btn-block btn-sm'>
                   <i className='icon-pencil' />
                   &nbsp;
-                  Editar proyecto
+                  {isProyecto ? 'Editar proyecto' : 'Editar idea'}
                 </Link>
               </div>
             )
@@ -175,7 +175,7 @@ class TopicArticle extends Component {
                  <Link href={editUrl} className='btn btn-default btn-block btn-sm'>
                    <i className='icon-pencil' />
                    &nbsp;
-                   Editar proyecto
+                   {isProyecto ? 'Editar proyecto' : 'Editar idea'}
                  </Link>
                </div>
                )
@@ -213,7 +213,7 @@ class TopicArticle extends Component {
           </div>
         */}
         <div className='topic-actions topic-article-content'>
-          {!noUser && !isProyecto && config.habilitarApoyo && 
+          {forum && forum.config.ideacion && !noUser && !isProyecto && 
             <Cause
               topic={topic}
               canVoteAndComment={forum.privileges.canVoteAndComment}
@@ -225,7 +225,7 @@ class TopicArticle extends Component {
 
           <Link href={`/propuestas?id=${topicEscuelaId}`} className="btn btn-go">
             {/* Ver todas las ideas */}
-            Ver todos los proyectos
+            {forum && forum.config.ideacion ? 'Ver todas las ideas' : 'Ver todos los proyectos'}
           </Link>
         </div>
         {/* <div className='topic-tags topic-article-content'>
