@@ -122,7 +122,7 @@ class BannerProyectistas extends Component {
         </div>
       )}
       <div>
-      <p className="help-text"><i className="icon-info icon-large"></i> <u>Ser proyectista</u> implica transformar las ideas en proyectos. <br/>Podes informarte más acerca de que es ser proyectista en la sección de <Link href="/acerca-de">Acerca De</Link></p>      </div>
+      <p className="help-text"><i className="icon-info icon-large"></i> <u>Ser proyectista</u> implica transformar las ideas en proyectos. <br/>Podes informarte más acerca de que es ser proyectista en la sección de <Link href="/acerca-de">Información</Link></p>      </div>
     </div>
 
    )
