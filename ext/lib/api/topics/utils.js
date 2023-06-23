@@ -3,6 +3,8 @@ const apiV1 = require('lib/db-api')
 const topicScopes = require('lib/api-v2/db-api/topics/scopes')
 const { notFound } = require('../errors')
 const ObjectID = require('mongoose').Types.ObjectId
+const Comments = require('lib/api-v2/db-api/comments')
+
 
 exports.parseClaustros = (req, res, next) => {
   req.query.claustros = req.query.claustros.split(',').filter((t) => !!t)
@@ -112,9 +114,15 @@ exports.findTopics = (opts) => {
           .limit(limit)
           .skip((page - 1) * limit)
           .exec()
-    } else
-      return []
-  }).then((topics) => Promise.all(topics.map((topic) => {
+          .then(topics => Promise.all(topics.map(topic => {
+            return Comments.listCount({ topicId: topic.id }).then(commentsCount => {
+              topic._doc.commentsCount = commentsCount
+              return topic
+            })
+          })))
+        } else
+        return []
+      }).then((topics) => Promise.all(topics.map((topic) => {
     return topicScopes.ordinary.expose(topic, forum, user)
   })))
 }

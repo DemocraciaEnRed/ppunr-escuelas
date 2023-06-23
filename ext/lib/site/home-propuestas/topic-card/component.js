@@ -58,7 +58,7 @@ export class TopicCard extends Component {
   render() {
     const { fullText,forum } = this.state
     const { topic, onVote, onProyectista, user, voterInformation } = this.props
-
+    
     const isStaff = !user.state.rejected && user.state.value.staff
     const isLoggedIn = user.state && user.state.fulfilled
 
@@ -193,7 +193,7 @@ export class TopicCard extends Component {
             }
             {
              forum && isLoggedIn && voterInformation.isFromEscuela && forum.config.ideacion && 
-              <Link className='btn btn-go' to={`/propuestas/topic/${topic.id}`}>Comentar <i className="icon-comment-alt"></i></Link>
+              <Link className='btn btn-go' to={`/propuestas/topic/${topic.id}`}>Comentarios {topic.commentsCount > 0 && `( ${topic.commentsCount} )`} <i className="icon-comment-alt"></i></Link>
             }
             {
               true &&
