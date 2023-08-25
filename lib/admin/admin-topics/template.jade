@@ -30,14 +30,14 @@
             button.btn.btn-primary.sort.por-nombre(data-sort='topic-title')
               span='A - Z'
       .row.row-filtros
-        .col-md-3.col-xs-12
+        .col-md-6.col-xs-12.text-left
           .form-group
             label='Escuela: '
             select.form-control(name='escuela')
               option(value="") Todos
               - each obj in uniqAttrs.escuelas
                 option(value="#{obj.value}") #{obj.name}
-        .col-md-3.col-xs-12
+        .col-md-6.col-xs-12.text-left
           .form-group
             label='Claustro: '
             select.form-control(name='claustro')
@@ -51,7 +51,15 @@
         //-       option(value="") Todos
         //-       option(value="pendiente") Idea
         //-       option(value="proyecto") Proyecto
-        .col-md-3.col-xs-12
+      .row.row-filtros
+        .col-md-6.col-xs-12.text-left
+          .input-group.input-group-md
+            ='Tipo: '
+            select(name='state')
+              option(value="") Todos
+              option(value="pendiente") Idea
+              option(value="proyecto") Proyecto
+        .col-md-6.col-xs-12.text-left
           .form-group
             label='Temas: '
             select.form-control(name='tema')

@@ -50,7 +50,7 @@ app.get('/topics',
       state: {
         type: 'string',
         format: 'states',
-        default: 'pendiente,factible,no-factible,integrado'
+        default: 'idea,proyecto'
       },
       sort: {
         type: 'string',
