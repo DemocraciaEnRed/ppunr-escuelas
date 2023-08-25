@@ -41,6 +41,11 @@ ul.admin-menu.nav.nav-pills.nav-stacked(class=forum.privileges.canChangeTopics ?
         ='Proyectistas'
   - if (user.staff)
     li
+      a(href=urlBuilder.for('admin.oficiales', {forum: forum.name}) data-section='oficiales')
+        span.glyphicon.glyphicon-list
+        ='Oficiales'
+  - if (user.staff)
+    li
       a(href=urlBuilder.for('admin.agenda', {forum: forum.name}) data-section='agenda')
         span.glyphicon.glyphicon-calendar
         ='Agenda'

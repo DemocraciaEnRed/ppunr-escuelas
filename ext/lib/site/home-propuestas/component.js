@@ -253,7 +253,7 @@ class HomePropuestas extends Component {
         })
       })
       .then((res) => {
-        if (forum.privileges && forum.privileges.canEdit) {
+        if ((forum.privileges && forum.privileges.canEdit) || (user && user.state && user.state.value && user.state.value.oficialMesa)) {
           this.checkPadron()
         }
       })
@@ -373,7 +373,15 @@ class HomePropuestas extends Component {
   handlerVotacion = (e) => {
     e.preventDefault()
 
-    this.setState({ dialogVotacion: !this.state.dialogVotacion, dialogMessage: null, dniP: '', claustroP: null, votesP: [], isDNIInPadron: false, escuelasP: [] }) //, () => this.fetchTopics());
+    this.setState({ 
+      dialogVotacion: !this.state.dialogVotacion,
+      dialogMessage: null,
+      dniP: '',
+      claustroP: null,
+      votesP: [],
+      isDNIInPadron: false,
+      escuelasP: []
+    }) //, () => this.fetchTopics());
   }
 
   checkPadron = () => {
@@ -416,7 +424,7 @@ class HomePropuestas extends Component {
     let isFromEscuela = false
     if (forum) {
       votacion = forum.config.votacion
-      if (userLoggedIn && forum.privileges && forum.privileges.canEdit) {
+      if ((userLoggedIn && forum.privileges && forum.privileges.canEdit) || (userLoggedIn && user && user.state && user.state.value && user.state.value.oficialMesa)) {
         if (isDNIInPadron) {
           dni = dniP
           votes = votesP
@@ -426,7 +434,7 @@ class HomePropuestas extends Component {
           votes = []
           isFromEscuela = false
         }
-      } else if (user && user.state && user.state.value && !forum.privileges.canEdit) {
+      } else if (user && user.state && user.state.value && !forum.privileges.canEdit && !user.state.value.oficialMesa) {
         dni = user.state.value.dni
         votes = userLoggedIn && user.state.value && user.state.value.voto
         const userEscuelasIds = user.state.fulfilled && user.state.value.escuelas.map(e => e._id)
@@ -435,8 +443,6 @@ class HomePropuestas extends Component {
 
     }
     
-    
-
     return {userLoggedIn, dni, votes, isFromEscuela,votacion }
   }
 
@@ -473,7 +479,7 @@ class HomePropuestas extends Component {
                 >
                   <span onClick={this.handlerVotacion}>&times;</span>
                   <p className='intro text-center'>* Módulo de votación presencial, para administradores</p>
-                  <h4 className='text-center'>Bienvenida/o a la votación de PPUNR 2022</h4>
+                  <h4 className='text-center'>Bienvenida/o a la votación de PPUNR</h4>
                   <h5 className='text-center'>Ingrese los datos del Votante</h5>
                   <label htmlFor="dniP">DNI</label>
                   <input id="dniP" type="text" name="dniP" className='form-control' onChange={(e) => this.setState({dniP: e.target.value})} />                
@@ -493,7 +499,7 @@ class HomePropuestas extends Component {
           btnText={forum.config.propuestasAbiertas && voterInformation.isFromEscuela ? 'Subí tu idea' : undefined}
           btnLink={forum.config.propuestasAbiertas && voterInformation.isFromEscuela ? `/formulario-idea?escuela=${escuela && escuela._id}` : undefined}
           title={escuela.titulo}
-          handlerVotacion={forum && forum.config.votacion && forum.privileges && forum.privileges.canEdit && this.handlerVotacion}
+          handlerVotacion={((forum && forum.config.votacion && forum.privileges && forum.privileges.canEdit) || (user && user.state && user.state.value && user.state.value.oficialMesa)) && this.handlerVotacion}
           user={user}
           voterInformation={voterInformation}
           subtitle={escuela && escuela.tituloForo}
