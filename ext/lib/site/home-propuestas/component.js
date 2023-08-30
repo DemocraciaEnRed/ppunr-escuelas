@@ -96,7 +96,7 @@ class HomePropuestas extends Component {
       topicStore.findAllProyectos(this.props.location.query.id)
     ]).then(results => {
       const [claustros, tags, forum, escuela, proyectos] = results
-      const tagsMap = tags.map(tag => { return {value: tag.id, name: tag.name}; });
+      const tagsMap = tags.filter((t) => t.enabled).map((tag) => { return { value: tag.id, name: tag.name } })
       const tag = this.props.location.query.tags ? [tagsMap.find(j => j.name == this.props.location.query.tags).value] : [];
       const tiposIdea = forum.topicsAttrs.find(a => a.name=='state').options.map(state => { return {value: state.name, name: state.title}; })
       const tipoIdea = forum.config.ideacion ? ['pendiente'] : forum.config.preVotacion || forum.config.votacion ? ['proyecto'] : []
