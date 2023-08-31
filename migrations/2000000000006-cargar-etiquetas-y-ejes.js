@@ -7,11 +7,11 @@ const Eje = models.Eje
 
 const etiquetas = [
   { nombre: "Ambiente y Sustentabilidad" },
-  { nombre: "Género / DDHH / Accesibilidad" },
+  { nombre: "Género DDHH y Accesibilidad" },
   { nombre: "Infraestructura" },
-  { nombre: "Académica / Aprendizajes " },
+  { nombre: "Académica y Aprendizajes " },
   { nombre: "Vinculación con el medio" },
-  { nombre: "Arte / Deporte / Salud " },
+  { nombre: "Arte Deporte y Salud " },
   { nombre: "Convivencia y Participación" },
  
 ]
@@ -29,11 +29,15 @@ const ejes = [
   { nombre: 'Innovación' },
   { nombre: 'Proximidad y sustentabilidad' },
   { nombre: 'Género e inclusión' },
-  { nombre: 'Aprendizajes, investigación e internacionalización' },
+  { nombre: 'Aprendizajes investigación e internacionalización' },
   { nombre: 'Modernización y transparencia' },
   { nombre: 'Bioseguridad' },
   { nombre: 'Otro' },
 ]
+
+ejes.forEach(eje => {
+  eje.hash = eje.nombre.toLowerCase().replace(/ /g, '-')
+})
 
 /**
  * Make any changes you need to make to the database here
